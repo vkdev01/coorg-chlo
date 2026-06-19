@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Chalo Coorg? ☕🌧️🏞️ — June Plan</title>
+<meta name="description" content="Bas ek baar bol de haan — Coorg June trip plan with the gang." />
+<meta property="og:title" content="Chalo Coorg? ☕" />
+<meta property="og:description" content="Bas haan bol de. No button kahin bhaag raha hai 😜" />
+<meta name="theme-color" content="#f0f5ec" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>" />
+<style>
+  :root{
+    --bg:#f0f5ec;
+    --bg2:#d8e6cf;
+    --ink:#1f2a37;
+    --muted:#5b6573;
+    --card:#ffffff;
+    --line:#dce6d2;
+    --yes:#22c55e;
+    --no:#ef4444;
+    --sun:#ffb703;
+    --sea:#2d6a4f;
+    --coral:#6f4e37;
+    --shadow:0 10px 30px rgba(31,42,55,.08);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body{
+    background:
+      radial-gradient(1200px 600px at 90% -10%, #e8f3da 0%, transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, #cfe7d6 0%, transparent 55%),
+      linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
+    min-height:100vh;
+    position:relative;
+  }
+
+  /* ------- Scenic background layers ------- */
+  .scene{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .sun-svg{position:absolute;top:40px;right:8%;width:120px;height:120px;animation:spin 40s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .cloud{position:absolute;font-size:42px;opacity:.85;animation:drift 60s linear infinite}
+  .cloud.c1{top:8%;left:-10%;animation-duration:75s}
+  .cloud.c2{top:18%;left:-30%;font-size:34px;animation-duration:95s;animation-delay:-20s;opacity:.7}
+  .cloud.c3{top:4%;left:-20%;font-size:28px;animation-duration:110s;animation-delay:-50s;opacity:.6}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(140vw)}}
+
+  /* coffee plant / pine tree on the sides */
+  .palm{position:absolute;bottom:160px;width:170px;transform-origin:bottom center;animation:sway 7s ease-in-out infinite;opacity:.95}
+  .palm.left{left:1%}
+  .palm.right{right:1%;animation-delay:-3.5s;transform:scaleX(-1)}
+  @keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+  .palm.right{animation-name:swayR}
+  @keyframes swayR{0%,100%{transform:scaleX(-1) rotate(-2deg)}50%{transform:scaleX(-1) rotate(2deg)}}
+
+  /* layered hills at the bottom (replaces ocean) */
+  .sea-wrap{position:fixed;left:0;right:0;bottom:0;height:230px;z-index:0;pointer-events:none}
+  .wave{position:absolute;left:0;right:0;bottom:0;width:220%;height:100%}
+  .wave svg{display:block;width:100%;height:100%}
+  .wave.w1{animation:waveX 90s linear infinite, waveY 9s ease-in-out infinite;opacity:.95}
+  .wave.w2{animation:waveX 130s linear infinite reverse, waveY 11s ease-in-out infinite;opacity:.85;bottom:14px}
+  .wave.w3{animation:waveX 180s linear infinite, waveY 14s ease-in-out infinite;opacity:.7;bottom:32px;animation-delay:-2s}
+  .wave.w4{animation:waveX 240s linear infinite reverse, waveY 18s ease-in-out infinite;opacity:.55;bottom:54px;animation-delay:-4s}
+  @keyframes waveX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes waveY{0%,100%{filter:none}50%{filter:brightness(1.04)}}
+  /* mist puffs riding above the hills */
+  .foam{position:absolute;bottom:140px;width:60px;height:18px;border-radius:12px;background:rgba(255,255,255,.55);filter:blur(6px);opacity:0;animation:foamPop 6s ease-out infinite}
+  @keyframes foamPop{0%{transform:translateY(20px) scale(.6);opacity:0}30%{opacity:.55}100%{transform:translateY(-40px) scale(1.4);opacity:0}}
+
+  /* light rain (drizzle) */
+  .rain{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .drop{position:absolute;top:-10vh;width:1.5px;height:18px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(180,210,200,.7));border-radius:1px;animation:rainFall linear infinite;opacity:.6}
+  @keyframes rainFall{from{transform:translateY(0)}to{transform:translateY(120vh)}}
+
+  /* breeze: horizontal wind streaks drifting */
+  .breeze{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .wind{position:absolute;left:-15%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);opacity:.6;animation:windX linear infinite}
+  @keyframes windX{from{transform:translateX(0)}to{transform:translateX(130vw)}}
+  /* drifting petals/leaves for visible breeze */
+  .petal{position:absolute;top:-10vh;font-size:20px;opacity:.85;animation:petalDrift linear infinite;filter:drop-shadow(0 2px 3px rgba(0,0,0,.1))}
+  @keyframes petalDrift{
+    0%   {transform:translate(0,0) rotate(0)}
+    50%  {transform:translate(40px,55vh) rotate(180deg)}
+    100% {transform:translate(-30px,120vh) rotate(360deg)}
+  }
+
+  /* dancing emojis row */
+  .dance{position:fixed;left:0;right:0;bottom:8px;text-align:center;z-index:2;pointer-events:none;font-size:30px;letter-spacing:6px}
+  .dance span{display:inline-block;animation:groove 1.1s ease-in-out infinite;transform-origin:bottom center}
+  .dance span:nth-child(odd){animation-delay:.15s}
+  .dance span:nth-child(3n){animation-delay:.3s}
+  .dance span:nth-child(4n){animation-delay:.45s}
+  @keyframes groove{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(6deg)}}
+
+  /* dance crew — bigger characters with varied moves */
+  .crew{position:fixed;left:0;right:0;bottom:60px;height:120px;pointer-events:none;z-index:2;display:flex;justify-content:space-evenly;align-items:flex-end;padding:0 4vw}
+  .crew .dancer{font-size:clamp(38px,5vw,60px);transform-origin:bottom center;filter:drop-shadow(0 4px 6px rgba(0,0,0,.18))}
+  .crew .d1{animation:twist 1.2s ease-in-out infinite}
+  .crew .d2{animation:jhumka 1.4s ease-in-out infinite;animation-delay:.1s}
+  .crew .d3{animation:hop 0.7s ease-in-out infinite;animation-delay:.2s}
+  .crew .d4{animation:shake 0.6s ease-in-out infinite}
+  .crew .d5{animation:spin360 2.2s linear infinite}
+  .crew .d6{animation:bhangra 1s ease-in-out infinite;animation-delay:.15s}
+  @keyframes twist  {0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(15deg) translateY(-8px)}}
+  @keyframes jhumka {0%,100%{transform:translateX(-8px) rotate(-8deg)}50%{transform:translateX(8px) rotate(8deg)}}
+  @keyframes hop    {0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.05)}}
+  @keyframes shake  {0%,100%{transform:translateX(0)}25%{transform:translateX(-6px) rotate(-3deg)}75%{transform:translateX(6px) rotate(3deg)}}
+  @keyframes spin360{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  @keyframes bhangra{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-14px) rotate(-12deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-14px) rotate(12deg)}}
+
+  /* music notes floating up around dancers */
+  .notes{position:fixed;left:0;right:0;bottom:120px;height:160px;pointer-events:none;z-index:2;overflow:hidden}
+  .note{position:absolute;bottom:0;font-size:22px;opacity:0;animation:noteUp 4s ease-in infinite}
+  @keyframes noteUp{0%{transform:translateY(0) rotate(-10deg);opacity:0}10%{opacity:.9}100%{transform:translateY(-160px) rotate(15deg);opacity:0}}
+
+  /* page content stacks above the scene */
+  .nav, .hero, .reveal, footer{position:relative;z-index:3}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;max-width:1100px;margin:0 auto;gap:10px;flex-wrap:wrap}
+  .brand{font-weight:800;letter-spacing:.3px}
+  .brand span{color:var(--sea)}
+  .nav-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .pill{background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-size:13px;color:var(--muted);box-shadow:var(--shadow)}
+  .toggle{cursor:pointer;background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:13px;color:#374151;box-shadow:var(--shadow);transition:transform .1s ease}
+  .toggle:hover{transform:translateY(-1px)}
+  .toggle.active{background:#fff7d6;border-color:#f3c98a;color:#7a4a00}
+
+  .hero{max-width:1100px;margin:10px auto 0;padding:30px 22px 10px;text-align:center}
+  .kicker{display:inline-block;background:#fff;border:1px dashed #f3c98a;color:#a06900;padding:6px 12px;border-radius:999px;font-size:12px;letter-spacing:.4px;text-transform:uppercase}
+  .title{font-size:clamp(40px,7vw,76px);line-height:1.02;margin:14px 0 8px;font-weight:900}
+  .title em{font-style:normal;background:linear-gradient(90deg,var(--sun),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:680px;margin:0 auto}
+  .meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;color:#374151;box-shadow:var(--shadow)}
+
+  .cta-wrap{position:relative;margin:30px auto 10px;min-height:120px}
+  .btn{font:inherit;cursor:pointer;border:0;border-radius:16px;padding:18px 28px;font-size:18px;font-weight:800;letter-spacing:.3px;transition:transform .15s ease, box-shadow .15s ease;box-shadow:var(--shadow)}
+  .btn:active{transform:translateY(1px)}
+  .yes{background:var(--yes);color:white;padding:20px 36px;font-size:20px}
+  .yes:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 30px rgba(34,197,94,.35)}
+  .yes.pulse{animation:pulseGlow 1.6s ease-in-out infinite}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 10px 30px rgba(34,197,94,.25)}50%{box-shadow:0 14px 40px rgba(34,197,94,.55)}}
+  .no{background:var(--no);color:white;position:relative}
+  .no.runaway{position:absolute;transition:left .25s ease, top .25s ease, transform .25s ease}
+  .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:center}
+
+  .taunt{margin-top:18px;min-height:28px;color:#9a3412;font-weight:700}
+
+  .reveal{display:none;max-width:1100px;margin:30px auto 60px;padding:0 22px}
+  .reveal.show{display:block;animation:fadein .5s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+  .card{grid-column:span 12;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  @media(min-width:760px){
+    .c6{grid-column:span 6}
+    .c4{grid-column:span 4}
+    .c8{grid-column:span 8}
+  }
+  .card h3{margin:0 0 4px;font-size:20px}
+  .card p.lead{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .opt{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fffdf7;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+  .opt:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,42,55,.08)}
+  .opt b{display:block}
+  .opt small{color:var(--muted)}
+  .price{font-weight:800;color:var(--sea);white-space:nowrap}
+
+  /* itinerary day cards with images */
+  .days{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:680px){.days{grid-template-columns:1fr 1fr}}
+  .day{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fffdf7;transition:transform .2s ease, box-shadow .2s ease;position:relative}
+  .day:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(31,42,55,.12)}
+  .day .img{height:180px;background-size:cover;background-position:center;position:relative;overflow:hidden;cursor:pointer}
+  .day .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.45));transition:opacity .2s}
+  .day .img:hover::after{opacity:.7}
+  .day .img .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;transition:transform .2s}
+  .day .img:hover .play-overlay{transform:scale(1.1)}
+  .day .img .play-btn{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:22px;color:#0ea5a6;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .day .video-frame{display:block;width:100%;height:200px;border:0;background:#000}
+  .day .video-wrap{position:relative;width:100%;height:200px;background:#000}
+  .day .video-wrap iframe,.day .video-wrap > div{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .day .video-close{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:18px;line-height:1;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;padding:0}
+  .day .video-close:hover{background:rgba(0,0,0,.9)}
+  .day .badge{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:#7a4a00;font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;letter-spacing:.4px;text-transform:uppercase;z-index:1}
+  .day .body{padding:14px}
+  .day h4{margin:0 0 4px;font-size:16px;color:#7a4a00}
+  .day p{margin:0;color:#374151;font-size:14px;line-height:1.45}
+  .day .emoji-pop{position:absolute;top:10px;right:12px;font-size:22px;z-index:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));animation:float-soft 4s ease-in-out infinite}
+  @keyframes float-soft{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  .rsvp{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .input{flex:1;min-width:180px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit}
+  .send{background:var(--sea);color:#fff}
+  .send:hover{transform:translateY(-1px)}
+  .who{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .who span{background:#e6fffb;border:1px solid #b6efe9;color:#0a6b6b;padding:6px 10px;border-radius:999px;font-size:13px}
+
+  footer{max-width:1100px;margin:20px auto;padding:0 22px 80px;color:var(--muted);font-size:13px;text-align:center}
+  .confetti{position:fixed;top:-10px;width:8px;height:14px;border-radius:2px;pointer-events:none;z-index:9999}
+
+  .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal.show{display:flex}
+  .modal .box{background:#fff;border-radius:18px;max-width:460px;width:100%;padding:22px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+  .modal h3{margin:0 0 8px}
+  .modal p{color:var(--muted);margin:0 0 14px}
+  .modal .btn{margin:6px}
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ Scenic background ============ -->
+<div class="scene" aria-hidden="true">
+  <!-- Sun -->
+  <svg class="sun-svg" viewBox="0 0 100 100">
+    <defs>
+      <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fff3b0"/>
+        <stop offset="60%" stop-color="#ffd166"/>
+        <stop offset="100%" stop-color="#ffb703"/>
+      </radialGradient>
+    </defs>
+    <g>
+      <circle cx="50" cy="50" r="22" fill="url(#sg)"/>
+      <g stroke="#ffb703" stroke-width="3" stroke-linecap="round">
+        <line x1="50" y1="6"  x2="50" y2="20"/>
+        <line x1="50" y1="80" x2="50" y2="94"/>
+        <line x1="6"  y1="50" x2="20" y2="50"/>
+        <line x1="80" y1="50" x2="94" y2="50"/>
+        <line x1="18" y1="18" x2="28" y2="28"/>
+        <line x1="72" y1="72" x2="82" y2="82"/>
+        <line x1="18" y1="82" x2="28" y2="72"/>
+        <line x1="72" y1="28" x2="82" y2="18"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="cloud c1">☁️</div>
+  <div class="cloud c2">☁️</div>
+  <div class="cloud c3">☁️</div>
+
+  <!-- Coffee plants -->
+  <svg class="palm left" viewBox="0 0 160 260">
+    <path d="M80,260 C72,210 78,150 84,90" stroke="#5b3a18" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <g stroke="#5b3a18" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M82,180 C60,170 40,168 22,176"/>
+      <path d="M82,150 C108,140 130,142 150,154"/>
+      <path d="M83,118 C62,108 40,108 20,118"/>
+      <path d="M83,92 C108,82 130,84 148,96"/>
+    </g>
+    <g fill="#2f7a3a">
+      <ellipse cx="22" cy="176" rx="14" ry="7"/>
+      <ellipse cx="40" cy="170" rx="12" ry="6"/>
+      <ellipse cx="60" cy="168" rx="12" ry="6"/>
+      <ellipse cx="150" cy="154" rx="14" ry="7"/>
+      <ellipse cx="130" cy="146" rx="12" ry="6"/>
+      <ellipse cx="110" cy="142" rx="12" ry="6"/>
+      <ellipse cx="20" cy="118" rx="14" ry="7"/>
+      <ellipse cx="40" cy="112" rx="12" ry="6"/>
+      <ellipse cx="60" cy="110" rx="12" ry="6"/>
+      <ellipse cx="148" cy="96" rx="14" ry="7"/>
+      <ellipse cx="128" cy="88" rx="12" ry="6"/>
+      <ellipse cx="108" cy="86" rx="12" ry="6"/>
+    </g>
+    <!-- coffee berries -->
+    <g fill="#c0392b">
+      <circle cx="30" cy="176" r="3"/>
+      <circle cx="50" cy="171" r="3"/>
+      <circle cx="135" cy="151" r="3"/>
+      <circle cx="118" cy="144" r="3"/>
+      <circle cx="32" cy="117" r="3"/>
+      <circle cx="138" cy="94" r="3"/>
+    </g>
+  </svg>
+  <svg class="palm right" viewBox="0 0 160 260">
+    <path d="M80,260 C72,210 78,150 84,90" stroke="#5b3a18" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <g stroke="#5b3a18" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M82,180 C60,170 40,168 22,176"/>
+      <path d="M82,150 C108,140 130,142 150,154"/>
+      <path d="M83,118 C62,108 40,108 20,118"/>
+      <path d="M83,92 C108,82 130,84 148,96"/>
+    </g>
+    <g fill="#2f7a3a">
+      <ellipse cx="22" cy="176" rx="14" ry="7"/>
+      <ellipse cx="40" cy="170" rx="12" ry="6"/>
+      <ellipse cx="60" cy="168" rx="12" ry="6"/>
+      <ellipse cx="150" cy="154" rx="14" ry="7"/>
+      <ellipse cx="130" cy="146" rx="12" ry="6"/>
+      <ellipse cx="110" cy="142" rx="12" ry="6"/>
+      <ellipse cx="20" cy="118" rx="14" ry="7"/>
+      <ellipse cx="40" cy="112" rx="12" ry="6"/>
+      <ellipse cx="60" cy="110" rx="12" ry="6"/>
+      <ellipse cx="148" cy="96" rx="14" ry="7"/>
+      <ellipse cx="128" cy="88" rx="12" ry="6"/>
+      <ellipse cx="108" cy="86" rx="12" ry="6"/>
+    </g>
+    <g fill="#c0392b">
+      <circle cx="30" cy="176" r="3"/>
+      <circle cx="50" cy="171" r="3"/>
+      <circle cx="135" cy="151" r="3"/>
+      <circle cx="118" cy="144" r="3"/>
+      <circle cx="32" cy="117" r="3"/>
+      <circle cx="138" cy="94" r="3"/>
+    </g>
+  </svg>
+
+  <!-- Layered hills at the bottom -->
+  <div class="sea-wrap">
+    <div class="wave w4">
+      <svg viewBox="0 0 2400 230" preserveAspectRatio="none">
+        <path d="M0,150 C200,90 400,160 600,120 C800,80 1000,170 1200,130 C1400,90 1600,170 1800,130 C2000,90 2200,160 2400,130 L2400,230 L0,230 Z" fill="#cfe3c4"/>
+      </svg>
+    </div>
+    <div class="wave w3">
+      <svg viewBox="0 0 2400 230" preserveAspectRatio="none">
+        <path d="M0,170 C220,100 440,180 660,140 C880,100 1100,180 1320,140 C1540,100 1760,180 1980,140 C2200,100 2400,170 2400,150 L2400,230 L0,230 Z" fill="#a8c895"/>
+      </svg>
+    </div>
+    <div class="wave w2">
+      <svg viewBox="0 0 2400 230" preserveAspectRatio="none">
+        <path d="M0,190 C260,120 520,200 780,160 C1040,120 1300,200 1560,160 C1820,120 2080,200 2340,160 C2380,155 2400,170 2400,170 L2400,230 L0,230 Z" fill="#6fa46a"/>
+      </svg>
+    </div>
+    <div class="wave w1">
+      <svg viewBox="0 0 2400 230" preserveAspectRatio="none">
+        <path d="M0,200 C260,140 520,210 780,180 C1040,140 1300,210 1560,180 C1820,140 2080,210 2340,180 C2380,175 2400,190 2400,190 L2400,230 L0,230 Z" fill="#3f7c4f"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Rain layer -->
+<div class="rain" id="rain" aria-hidden="true"></div>
+
+<!-- Breeze layer: wind streaks + drifting leaves/coffee beans -->
+<div class="breeze" id="breeze" aria-hidden="true"></div>
+
+<!-- Dance crew in the hills -->
+<div class="crew" aria-hidden="true">
+  <div class="dancer d1">💃</div>
+  <div class="dancer d2">🕺</div>
+  <div class="dancer d3">🐒</div>
+  <div class="dancer d4">🦜</div>
+  <div class="dancer d5">🥁</div>
+  <div class="dancer d6">👯</div>
+</div>
+<div class="notes" id="notes" aria-hidden="true"></div>
+
+<div class="dance" aria-hidden="true">
+  <span>💃</span><span>🕺</span><span>🌲</span><span>☕</span><span>⛰️</span><span>🌧️</span><span>🍃</span>
+</div>
+
+<!-- ============ Page content ============ -->
+<div class="nav">
+  <div class="brand">Chalo <span>Coorg</span> ☕</div>
+  <div class="nav-actions">
+    <button class="toggle active" id="ambToggle"   title="Hills + breeze ambience (on by default)">🌲 Ambience</button>
+    <button class="toggle active" id="musicToggle" title="Cheeky Coorg coffee-shack synth loop">🎶 Music</button>
+    <button class="toggle active" id="soundToggle" title="Click sound effects">🔊 SFX</button>
+    <button class="toggle"        id="voiceToggle" title="Hindi voice on/off (robotic, off by default)">🗣️ Voice</button>
+    <span class="pill">📅 June 2026 · 4 nights</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="kicker">Top Secret Plan · Only for the Gang</div>
+  <h1 class="title">Bhai, <em>chalein Coorg?</em> ⛰️</h1>
+  <p class="sub">June mein. Subah mist, haath mein filter coffee, raat mein bonfire + kambala stories. Bas ek button daba — <b>Haan</b>. Naa wala button thoda shy hai, pahaadon mein bhaag raha hai 😜</p>
+
+  <div class="meta">
+    <span class="chip">🗓️ 14–18 June</span>
+    <span class="chip">💸 ~₹10–16k per banda</span>
+    <span class="chip">🌧️ Pre-monsoon mist · 18–26°C</span>
+    <span class="chip">☕ Coffee estate stays</span>
+  </div>
+
+  <div class="cta-wrap" id="ctaWrap">
+    <div class="row">
+      <button class="btn yes pulse" id="yesBtn">✅ Haan, chalo! Pakka.</button>
+      <button class="btn no" id="noBtn">❌ Nahi yaar…</button>
+    </div>
+    <div class="taunt" id="taunt"></div>
+  </div>
+</section>
+
+<!-- Plan reveal -->
+<section class="reveal" id="plan">
+  <div class="grid">
+
+    <div class="card c8">
+      <h3>🛣️ Kaise jaayein? — Pick your poison</h3>
+      <p class="lead">Sab options pe socha hua hai. Bullock cart wala bhi 🐂</p>
+      <div class="opt" data-sfx="click"><div><b>✈️ Flight (DEL/BOM → BLR/MAA)</b><small>+ 5–6 hr scenic drive. Coorg airport nahi hai bhai.</small></div><div class="price">₹5–9k</div></div>
+      <div class="opt" data-sfx="click"><div><b>🚂 Train (→ Mysuru) + cab</b><small>Mysuru utar, 3 hr ghatt drive. Window seat = ASMR.</small></div><div class="price">₹1.5–3k</div></div>
+      <div class="opt" data-sfx="click"><div><b>🚗 Road trip from Bangalore</b><small>250 km, 5 hr. Maddur vada pit-stop pakka.</small></div><div class="price">₹2–4k/head</div></div>
+      <div class="opt" data-sfx="click"><div><b>🐂 Bullock cart</b><small>Agle June pohochenge. Strongly not recommended.</small></div><div class="price">Free 🤝</div></div>
+    </div>
+
+    <div class="card c4">
+      <h3>🏡 Kahaan rukenge?</h3>
+      <p class="lead">Budget se boujie tak — sab cover.</p>
+      <div class="opt" data-sfx="click"><div><b>🛏️ Hostel (Madikeri)</b><small>Backpackers, naye log, common bonfire.</small></div><div class="price">₹700/n</div></div>
+      <div class="opt" data-sfx="click"><div><b>☕ Coffee-estate homestay</b><small>Subah uthte hi plantation walk. Filter coffee unlimited.</small></div><div class="price">₹2.5k/n</div></div>
+      <div class="opt" data-sfx="click"><div><b>🏕️ Hilltop villa with view</b><small>5 log = ₹1.5k each. Mist + Maggi.</small></div><div class="price">₹7k/n</div></div>
+    </div>
+
+    <div class="card c12">
+      <h3>🗺️ Itinerary — "Plan toh hai, follow nahi karenge"</h3>
+      <p class="lead">Tap kisi bhi din pe — video chalega 🎬 (IDs config in script)</p>
+      <div class="days">
+        <article class="day" data-sfx="wave">
+          <div class="img video-thumb" data-video="PASTE_DAY1_ID" style="background-image:url('https://images.unsplash.com/photo-1580674684089-5c8b0bbcbf3a?auto=format&fit=crop&w=800&q=70')">
+            <span class="badge">Day 1 · Arrive</span>
+            <span class="emoji-pop">🛬</span>
+            <div class="play-overlay"><div class="play-btn">▶</div></div>
+          </div>
+          <div class="body">
+            <h4>Madikeri pohonche, settle ho</h4>
+            <p>Check-in @ estate homestay, Raja's Seat susset 🌄, Omkareshwara temple, dinner = pandi curry + akki roti. First photo ritual mandatory 📸</p>
+          </div>
+        </article>
+
+        <article class="day" data-sfx="wave">
+          <div class="img video-thumb" data-video="PASTE_DAY2_ID" style="background-image:url('https://images.unsplash.com/photo-1572979758879-7ad8a161dee9?auto=format&fit=crop&w=800&q=70')">
+            <span class="badge">Day 2 · Falls + Elephants</span>
+            <span class="emoji-pop">💦</span>
+            <div class="play-overlay"><div class="play-btn">▶</div></div>
+          </div>
+          <div class="body">
+            <h4>Abbey Falls + Dubare camp</h4>
+            <p>Abbey Falls (slippery hai, sambhal ke), Madikeri Fort, then Dubare elephant camp — haathi nahla, river rafting if guts hai. Evening: estate bonfire 🔥</p>
+          </div>
+        </article>
+
+        <article class="day" data-sfx="wave">
+          <div class="img video-thumb" data-video="PASTE_DAY3_ID" style="background-image:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=70')">
+            <span class="badge">Day 3 · Sunrise jeep</span>
+            <span class="emoji-pop">🌅</span>
+            <div class="play-overlay"><div class="play-btn">▶</div></div>
+          </div>
+          <div class="body">
+            <h4>Mandalpatti + coffee tour</h4>
+            <p>4 AM uthna 😴 — Mandalpatti jeep ride, cloud-sea view. Wapis aake plantation walk, filter coffee tasting, lazy lunch.</p>
+          </div>
+        </article>
+
+        <article class="day" data-sfx="wave">
+          <div class="img video-thumb" data-video="PASTE_DAY4_ID" style="background-image:url('https://images.unsplash.com/photo-1597211833712-5e41faa202ea?auto=format&fit=crop&w=800&q=70')">
+            <span class="badge">Day 4 · Talakaveri</span>
+            <span class="emoji-pop">🛕</span>
+            <div class="play-overlay"><div class="play-btn">▶</div></div>
+          </div>
+          <div class="body">
+            <h4>Talakaveri + Nisargadhama</h4>
+            <p>Kaveri origin pe darshan + Bhagamandala temple. Wapis aake Nisargadhama bamboo grove, hanging bridge, deer park. Shaam ko cafe-hop in Madikeri.</p>
+          </div>
+        </article>
+
+        <article class="day" data-sfx="wave">
+          <div class="img video-thumb" data-video="PASTE_DAY5_ID" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=70')">
+            <span class="badge">Day 5 · Bye</span>
+            <span class="emoji-pop">🥹</span>
+            <div class="play-overlay"><div class="play-btn">▶</div></div>
+          </div>
+          <div class="body">
+            <h4>"Ek aur din ruk jaate"</h4>
+            <p>Late brunch, coffee + chocolate + honey shopping (sab ke liye), wapsi drive. Group photo with sad faces. Promise to plan next trip within 2 weeks (won't happen).</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="card c8">
+      <h3>💰 Budget split</h3>
+      <p class="lead">Approx, per banda (5 log assume).</p>
+      <div class="opt"><div><b>Travel</b><small>Flight/train + drive</small></div><div class="price">₹4,000</div></div>
+      <div class="opt"><div><b>Stay (4n)</b><small>Estate homestay share</small></div><div class="price">₹5,000</div></div>
+      <div class="opt"><div><b>Food + fun</b><small>Pandi curry, estate tours, jeep</small></div><div class="price">₹4,000</div></div>
+      <div class="opt"><div><b>Total</b><small>± ₹2k coffee-shopping</small></div><div class="price">~₹13,000</div></div>
+    </div>
+
+    <div class="card c4">
+      <h3>🎒 Packing checklist</h3>
+      <p class="lead">Bhool gaya toh fir bahane.</p>
+      <div class="opt"><div><b>🧥 Light jacket / fleece</b><small>Subah 18°C — chai chahiye</small></div></div>
+      <div class="opt"><div><b>👟 Trekking shoes</b><small>Mandalpatti pe slippers? Nahi.</small></div></div>
+      <div class="opt"><div><b>☂️ Rain jacket / poncho</b><small>June = surprise drizzle</small></div></div>
+      <div class="opt"><div><b>🦟 Mosquito repellent</b><small>Estate stays mein zaroori</small></div></div>
+      <div class="opt"><div><b>📸 Charger + power bank</b><small>Network thoda meh, photos zaroor</small></div></div>
+    </div>
+
+    <div class="card c12">
+      <h3>📝 RSVP — naam likh, locked in</h3>
+      <p class="lead">Apna naam daal de, list bana lete hain. (Sirf is browser mein save hoga — promise toh tu khud rakhega 🤞)</p>
+      <div class="rsvp">
+        <input id="name" class="input" placeholder="Tera naam… (e.g. Vaibhav 😎)" />
+        <button class="btn send" id="rsvp">Lock me in 🔒</button>
+      </div>
+      <div class="who" id="whoList"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  Banaya gaya pyaar se · June 2026 · "Pahaad bula rahe hain, sun le bhai" ⛰️☕
+</footer>
+
+<!-- Modal for the No-button surrender -->
+<div class="modal" id="modal">
+  <div class="box">
+    <h3>Arre yaar 😩</h3>
+    <p id="reason">…</p>
+    <button class="btn yes" id="okFine">Theek hai, chalo! ✅</button>
+    <button class="btn no" id="stillNo">Phir bhi nahi 😤</button>
+  </div>
+</div>
+
+<script>
+  /* =========================
+     Sound engine — richer Web Audio (filtered noise + multi-osc + delay)
+     ========================= */
+  let audioCtx = null;
+  let masterGain = null, delayNode = null, delayFeedback = null, delayWet = null;
+  let soundOn = true;
+  let voiceOn = false; // off by default — browser TTS is robotic
+
+  function ensureAudio(){
+    if(!audioCtx){
+      try{
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // master + simple feedback delay (faux reverb tail)
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0.9;
+        delayNode = audioCtx.createDelay(1.0);
+        delayNode.delayTime.value = 0.16;
+        delayFeedback = audioCtx.createGain();
+        delayFeedback.gain.value = 0.28;
+        delayWet = audioCtx.createGain();
+        delayWet.gain.value = 0.22;
+        // routing: source -> masterGain -> destination; source -> delay -> feedback -> delay -> delayWet -> destination
+        masterGain.connect(audioCtx.destination);
+        delayNode.connect(delayFeedback);
+        delayFeedback.connect(delayNode);
+        delayNode.connect(delayWet);
+        delayWet.connect(audioCtx.destination);
+      } catch(e){ audioCtx = null; }
+    }
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+
+  // create a short noise buffer (cached)
+  let noiseBuf = null;
+  function getNoise(){
+    if(noiseBuf) return noiseBuf;
+    const sr = audioCtx.sampleRate;
+    const len = sr * 1.5;
+    noiseBuf = audioCtx.createBuffer(1, len, sr);
+    const d = noiseBuf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i] = (Math.random()*2 - 1);
+    return noiseBuf;
+  }
+
+  // Connect a source through master and optionally send to delay
+  function connectOut(node, sendDelay=0){
+    node.connect(masterGain);
+    if(sendDelay > 0){
+      const s = audioCtx.createGain();
+      s.gain.value = sendDelay;
+      node.connect(s);
+      s.connect(delayNode);
+    }
+  }
+
+  // Pluck/percussive tone: oscillator with fast attack, exp decay, lowpass
+  function pluck({freq=440, dur=0.25, type='triangle', vol=0.18, when=0, filterFreq=2400, sendDelay=0.2, detune=0, glideTo=null}){
+    if(!soundOn || !audioCtx) return;
+    const t0 = audioCtx.currentTime + when;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    const lp = audioCtx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = filterFreq; lp.Q.value = 0.6;
+    o.type = type; o.frequency.setValueAtTime(freq, t0); o.detune.value = detune;
+    if(glideTo){ o.frequency.exponentialRampToValueAtTime(glideTo, t0 + dur*0.9); }
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(lp); lp.connect(g);
+    connectOut(g, sendDelay);
+    o.start(t0); o.stop(t0 + dur + 0.05);
+  }
+
+  // Filtered noise burst — for splash, woosh, snare-y hit
+  function noise({dur=0.4, vol=0.25, when=0, type='bandpass', freq=1200, Q=1.2, sweepTo=null, sendDelay=0.15}){
+    if(!soundOn || !audioCtx) return;
+    const t0 = audioCtx.currentTime + when;
+    const src = audioCtx.createBufferSource();
+    src.buffer = getNoise();
+    const f = audioCtx.createBiquadFilter();
+    f.type = type; f.frequency.setValueAtTime(freq, t0); f.Q.value = Q;
+    if(sweepTo){ f.frequency.exponentialRampToValueAtTime(sweepTo, t0 + dur); }
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    src.connect(f); f.connect(g);
+    connectOut(g, sendDelay);
+    src.start(t0); src.stop(t0 + dur + 0.05);
+  }
+
+  // Bell — two detuned sines, slow exponential decay
+  function bell({freq=880, dur=1.2, vol=0.16, when=0, sendDelay=0.35}){
+    if(!soundOn || !audioCtx) return;
+    const t0 = audioCtx.currentTime + when;
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    [0, 4, 7, 12].forEach((semi, i)=>{
+      const o = audioCtx.createOscillator();
+      o.type = 'sine';
+      o.frequency.value = freq * Math.pow(2, semi/12);
+      o.detune.value = (i%2 ? 6 : -6);
+      const og = audioCtx.createGain();
+      og.gain.value = [0.6, 0.35, 0.22, 0.16][i];
+      o.connect(og); og.connect(g);
+      o.start(t0); o.stop(t0 + dur + 0.05);
+    });
+    connectOut(g, sendDelay);
+  }
+
+  function sfx(name){
+    if(!soundOn) return;
+    ensureAudio();
+    if(!audioCtx) return;
+    switch(name){
+      case 'click':
+        // soft wooden tap
+        pluck({freq:1200, dur:0.09, type:'triangle', vol:0.18, filterFreq:3000, sendDelay:0.1});
+        noise({dur:0.05, vol:0.08, type:'highpass', freq:3000, Q:0.4, sendDelay:0});
+        break;
+      case 'pop':
+        pluck({freq:520, dur:0.12, type:'sine', vol:0.22, filterFreq:1800, glideTo:1100, sendDelay:0.15});
+        break;
+      case 'wave':
+        // splash: noise sweep low->high, with a soft tonal body
+        noise({dur:0.7, vol:0.22, type:'bandpass', freq:300, Q:0.8, sweepTo:1800, sendDelay:0.3});
+        pluck({freq:160, dur:0.6, type:'sine', vol:0.10, filterFreq:600, sendDelay:0.2});
+        break;
+      case 'no':
+        // playful "uh-uh" — two short low blips
+        pluck({freq:260, dur:0.10, type:'square', vol:0.14, filterFreq:1200, sendDelay:0.1, glideTo:200});
+        pluck({freq:200, dur:0.10, type:'square', vol:0.14, filterFreq:1000, when:0.10, glideTo:160, sendDelay:0.1});
+        break;
+      case 'cheer':
+        // happy arpeggio + bell
+        [523.25, 659.25, 783.99, 1046.50].forEach((f,i)=>
+          pluck({freq:f, dur:0.30, type:'triangle', vol:0.14, filterFreq:3500, when:i*0.07, sendDelay:0.25})
+        );
+        bell({freq:1318.5, dur:1.4, vol:0.12, when:0.35, sendDelay:0.4});
+        // shaker-ish noise on top
+        noise({dur:0.5, vol:0.05, type:'highpass', freq:5000, Q:0.4, when:0.05, sendDelay:0});
+        break;
+    }
+  }
+
+  // Hindi/Hinglish voice via SpeechSynthesis — optional, off by default
+  // (Browser TTS is robotic; many systems don't ship a Hindi voice, so we
+  //  fall through to Indian English → any English → default voice.)
+  let cachedVoices = [];
+  let chosenVoice = null;
+  function refreshVoices(){
+    if(!('speechSynthesis' in window)) return;
+    cachedVoices = window.speechSynthesis.getVoices() || [];
+    // Priority: hi-IN > Indian-English > any English (prefer female-ish names) > default
+    chosenVoice =
+      cachedVoices.find(v => /^hi(-|_)?IN/i.test(v.lang)) ||
+      cachedVoices.find(v => /hindi/i.test(v.name)) ||
+      cachedVoices.find(v => /^en(-|_)?IN/i.test(v.lang)) ||
+      cachedVoices.find(v => /Rishi|Lekha|Veena|Heera|Kalpana/i.test(v.name)) ||
+      cachedVoices.find(v => /^en/i.test(v.lang) && /female|samantha|google.*us/i.test(v.name)) ||
+      cachedVoices.find(v => /^en/i.test(v.lang)) ||
+      cachedVoices[0] || null;
+  }
+  if('speechSynthesis' in window){
+    refreshVoices();
+    window.speechSynthesis.onvoiceschanged = refreshVoices;
+  }
+
+  function speak(text, opts={}){
+    if(!voiceOn) return;
+    if(!('speechSynthesis' in window)){
+      console.warn('SpeechSynthesis not supported in this browser.');
+      return;
+    }
+    if(!chosenVoice) refreshVoices();
+    // Chrome race: cancel + immediate speak sometimes drops; tiny delay fixes it
+    try { window.speechSynthesis.cancel(); } catch(e){}
+    setTimeout(() => {
+      const u = new SpeechSynthesisUtterance(text);
+      if(chosenVoice){
+        u.voice = chosenVoice;
+        u.lang  = chosenVoice.lang;   // match the voice, don't force hi-IN if voice is en-*
+      } else {
+        u.lang = 'en-IN';
+      }
+      u.rate   = opts.rate   ?? 0.98;
+      u.pitch  = opts.pitch  ?? 1.0;
+      u.volume = opts.volume ?? 1.0;
+      u.onerror = (ev) => console.warn('TTS error:', ev.error, ev);
+      window.speechSynthesis.speak(u);
+    }, 60);
+  }
+
+  /* =========================
+     Ambient soundscape — procedural ocean + breeze (continuous)
+     ========================= */
+  let ambOn = true;            // ocean+breeze ambience on by default
+  let ambStarted = false;
+  let ambGain = null;
+
+  function startAmbience(){
+    if(!audioCtx || ambStarted) return;
+    ambStarted = true;
+    ambGain = audioCtx.createGain();
+    ambGain.gain.value = 0.0;
+    ambGain.connect(audioCtx.destination);
+
+    const sr = audioCtx.sampleRate;
+    const makeNoise = (sec=4) => {
+      const b = audioCtx.createBuffer(1, sr*sec, sr);
+      const d = b.getChannelData(0);
+      for(let i=0;i<d.length;i++) d[i] = (Math.random()*2 - 1) * 0.6;
+      return b;
+    };
+
+    // ---------- OCEAN ----------
+    // Two slightly different noise streams panned L/R for width.
+    const makeOceanChannel = (pan) => {
+      const src = audioCtx.createBufferSource();
+      src.buffer = makeNoise(6); src.loop = true;
+
+      const hp = audioCtx.createBiquadFilter(); hp.type='highpass';
+      hp.frequency.value = 90; hp.Q.value = 0.2;
+
+      const lp = audioCtx.createBiquadFilter(); lp.type='lowpass';
+      lp.frequency.value = 700; lp.Q.value = 0.5;
+
+      const g  = audioCtx.createGain(); g.gain.value = 0.5;
+
+      // LFO 1: slow main swell (~8s)
+      const lfo1 = audioCtx.createOscillator(); lfo1.type='sine';
+      lfo1.frequency.value = 0.11;
+      const lfo1G = audioCtx.createGain(); lfo1G.gain.value = 420;
+      lfo1.connect(lfo1G); lfo1G.connect(lp.frequency);
+
+      // LFO 2: very slow drift (~25s)
+      const lfo2 = audioCtx.createOscillator(); lfo2.type='sine';
+      lfo2.frequency.value = 0.04;
+      const lfo2G = audioCtx.createGain(); lfo2G.gain.value = 200;
+      lfo2.connect(lfo2G); lfo2G.connect(lp.frequency);
+
+      // LFO 3: faster chop on amplitude (~1.6s)
+      const lfo3 = audioCtx.createOscillator(); lfo3.type='sine';
+      lfo3.frequency.value = 0.62;
+      const lfo3G = audioCtx.createGain(); lfo3G.gain.value = 0.18;
+      lfo3.connect(lfo3G); lfo3G.connect(g.gain);
+
+      const panner = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+      if(panner) panner.pan.value = pan;
+
+      src.connect(hp); hp.connect(lp); lp.connect(g);
+      if(panner){ g.connect(panner); panner.connect(ambGain); }
+      else { g.connect(ambGain); }
+
+      src.start(); lfo1.start(); lfo2.start(); lfo3.start();
+    };
+    makeOceanChannel(-0.55);
+    makeOceanChannel( 0.55);
+
+    // ---------- BREEZE ----------
+    // Soft high-passed noise pad, with a slow LFO making the wind "gust" in and out.
+    const bSrc = audioCtx.createBufferSource(); bSrc.buffer = makeNoise(6); bSrc.loop = true;
+    const bHp  = audioCtx.createBiquadFilter(); bHp.type='highpass'; bHp.frequency.value = 800; bHp.Q.value = 0.4;
+    const bLp  = audioCtx.createBiquadFilter(); bLp.type='lowpass';  bLp.frequency.value = 3500; bLp.Q.value = 0.3;
+    const bG   = audioCtx.createGain(); bG.gain.value = 0.06;
+
+    // Gust LFO — modulates amplitude up & down slowly (~12s)
+    const gust = audioCtx.createOscillator(); gust.type='sine'; gust.frequency.value = 0.08;
+    const gustG = audioCtx.createGain(); gustG.gain.value = 0.07;
+    gust.connect(gustG); gustG.connect(bG.gain);
+
+    // Slow filter sweep too, for sssh→sshh texture
+    const bSweep = audioCtx.createOscillator(); bSweep.type='sine'; bSweep.frequency.value = 0.05;
+    const bSweepG = audioCtx.createGain(); bSweepG.gain.value = 900;
+    bSweep.connect(bSweepG); bSweepG.connect(bLp.frequency);
+
+    bSrc.connect(bHp); bHp.connect(bLp); bLp.connect(bG); bG.connect(ambGain);
+    bSrc.start(); gust.start(); bSweep.start();
+
+    fadeAmbience(ambOn ? 0.4 : 0.0, 1.5);
+  }
+
+  function fadeAmbience(toVal, secs=1.0){
+    if(!audioCtx || !ambGain) return;
+    const t = audioCtx.currentTime;
+    ambGain.gain.cancelScheduledValues(t);
+    ambGain.gain.setValueAtTime(ambGain.gain.value, t);
+    ambGain.gain.linearRampToValueAtTime(toVal, t + secs);
+  }
+
+  /* =========================
+     UI toggles
+     ========================= */
+  const ambToggle = document.getElementById('ambToggle');
+  ambToggle.addEventListener('click', ()=>{
+    ambOn = !ambOn;
+    ambToggle.classList.toggle('active', ambOn);
+    ambToggle.textContent = ambOn ? '🌊 Ambience' : '🌊 Silent';
+    ensureAudio();
+    if(!ambStarted) startAmbience();
+    fadeAmbience(ambOn ? 0.35 : 0.0, 1.2);
+  });
+
+  const soundToggle = document.getElementById('soundToggle');
+  soundToggle.addEventListener('click', ()=>{
+    soundOn = !soundOn;
+    soundToggle.classList.toggle('active', soundOn);
+    soundToggle.textContent = soundOn ? '🔊 SFX' : '🔇 SFX off';
+    if(soundOn){ ensureAudio(); sfx('pop'); }
+    else if('speechSynthesis' in window){ window.speechSynthesis.cancel(); }
+  });
+
+  /* =========================
+     Procedural Music — cheeky "Coorg coffee-shack" synth loop
+     Bass + lead in F# minor pentatonic, 110 BPM, lazy hill groove.
+     ========================= */
+  let musicOn = true;  // start ON by default; actual audio starts on first user gesture (browser policy)
+  let musicGain = null;
+  let musicTimer = null;
+  let musicStep = 0;
+  const BPM = 110;
+  const STEP_MS = (60000 / BPM) / 2;  // eighth notes
+
+  // F# minor pentatonic-ish notes
+  const N = {
+    Fs2: 92.50, A2: 110.00, B2: 123.47, Cs3: 138.59, E3: 164.81,
+    Fs3: 185.00, A3: 220.00, B3: 246.94, Cs4: 277.18, E4: 329.63,
+    Fs4: 369.99, A4: 440.00, B4: 493.88, Cs5: 554.37, E5: 659.25, Fs5: 739.99
+  };
+  // 16-step bass + lead patterns (looped). nulls = rest.
+  const BASS = [N.Fs2,null,N.Fs2,null, N.A2,null,N.E2||N.E3,null,
+                N.Cs3,null,N.Cs3,null, N.B2,null,N.A2,null];
+  const LEAD = [N.Fs4,null,N.A4,N.Cs5, null,N.B4,null,N.A4,
+                N.E4,null,N.Fs4,null,  N.Cs5,null,N.B4,null];
+
+  function playMusicStep(){
+    if(!musicOn || !audioCtx || !musicGain) return;
+    const t = audioCtx.currentTime;
+    const bass = BASS[musicStep % 16];
+    const lead = LEAD[musicStep % 16];
+
+    // soft kick on beats 1 & 9 for a chill heartbeat
+    if(musicStep % 8 === 0){
+      const o = audioCtx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(120, t);
+      o.frequency.exponentialRampToValueAtTime(45, t+0.12);
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.35, t+0.005);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+0.18);
+      o.connect(g); g.connect(musicGain);
+      o.start(t); o.stop(t+0.22);
+    }
+    // shaker / hat every step
+    if(musicStep % 2 === 1){
+      const s = audioCtx.createBufferSource(); s.buffer = getNoise();
+      const f = audioCtx.createBiquadFilter(); f.type='highpass'; f.frequency.value=6000;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.05, t+0.005);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+0.06);
+      s.connect(f); f.connect(g); g.connect(musicGain);
+      s.start(t); s.stop(t+0.08);
+    }
+    // bass note
+    if(bass){
+      const o = audioCtx.createOscillator(); o.type='triangle'; o.frequency.value=bass;
+      const lp = audioCtx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=800;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+0.32);
+      o.connect(lp); lp.connect(g); g.connect(musicGain);
+      o.start(t); o.stop(t+0.36);
+    }
+    // lead note (pluck through delay for that hill echo)
+    if(lead){
+      pluck({freq:lead, dur:0.4, type:'triangle', vol:0.10, filterFreq:3200, sendDelay:0.4});
+    }
+
+    musicStep++;
+  }
+
+  function startMusic(){
+    if(musicOn) return;
+    ensureAudio();
+    if(!audioCtx) return;
+    musicOn = true;
+    if(!musicGain){
+      musicGain = audioCtx.createGain();
+      musicGain.gain.value = 0.0;
+      musicGain.connect(audioCtx.destination);
+    }
+    // fade in
+    const t = audioCtx.currentTime;
+    musicGain.gain.cancelScheduledValues(t);
+    musicGain.gain.setValueAtTime(musicGain.gain.value, t);
+    musicGain.gain.linearRampToValueAtTime(0.75, t + 1.2);
+    musicStep = 0;
+    musicTimer = setInterval(playMusicStep, STEP_MS);
+  }
+  function stopMusic(){
+    musicOn = false;
+    if(musicTimer){ clearInterval(musicTimer); musicTimer = null; }
+    if(musicGain && audioCtx){
+      const t = audioCtx.currentTime;
+      musicGain.gain.cancelScheduledValues(t);
+      musicGain.gain.setValueAtTime(musicGain.gain.value, t);
+      musicGain.gain.linearRampToValueAtTime(0.0, t + 0.6);
+    }
+  }
+  const musicToggle = document.getElementById('musicToggle');
+  musicToggle.textContent = '🎵 Music: ON';  // reflect default-on state
+  musicToggle.addEventListener('click', ()=>{
+    if(musicOn){ stopMusic(); musicToggle.classList.remove('active'); musicToggle.textContent='🎵 Music'; }
+    else      { startMusic(); musicToggle.classList.add('active');    musicToggle.textContent='🎵 Music: ON'; }
+  });
+
+  /* =========================
+     YouTube background song (paste a Coorg/hill-vibe song ID)
+     Uses the YouTube IFrame Player API → legitimate, no audio scraping.
+     ⚠️ PASTE THE VIDEO ID below. To find it: open the song on YouTube,
+        copy the part after ?v=  (e.g.  https://youtu.be/ABC123  → ABC123).
+     Suggestions: "Kun Faya Kun", "Phir Le Aaya Dil", "Naina", or any chill
+        Hindi/instrumental track for misty hills vibes.
+     ========================= */
+  const YT_SONG_ID = 'PASTE_VIDEO_ID_HERE';   // ← e.g. 'EuTcUOhFsAU'
+
+  let ytPlayer = null;
+  let ytReady = false;
+  let songOn = true;   // Coorg song always on by default (no toggle)
+
+  // Inject the YouTube IFrame API once
+  (function loadYT(){
+    if(window.YT && window.YT.Player) return;
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  })();
+  // Hidden mount point
+  (function mountYTHost(){
+    const host = document.createElement('div');
+    host.id = 'ytSongHost';
+    host.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
+    host.innerHTML = '<div id="ytSong"></div>';
+    document.body.appendChild(host);
+  })();
+  window.onYouTubeIframeAPIReady = function(){
+    if(!YT_SONG_ID || YT_SONG_ID === 'PASTE_VIDEO_ID_HERE') return;
+    ytPlayer = new YT.Player('ytSong', {
+      height: '0', width: '0', videoId: YT_SONG_ID,
+      playerVars: {
+        autoplay: 0, controls: 0, disablekb: 1, modestbranding: 1,
+        playsinline: 1, rel: 0, loop: 1, playlist: YT_SONG_ID
+      },
+      events: {
+        onReady: () => {
+          ytReady = true;
+          if(songOn){ try{ ytPlayer.unMute(); ytPlayer.playVideo(); }catch(e){} }
+        },
+        onError: (e) => console.warn('YouTube player error:', e)
+      }
+    });
+  };
+
+  // Coorg song is always on — no toggle. Duck the procedural synth music
+  // permanently so it sits under the YouTube track without fighting it.
+  function duckMusicForSong(){
+    if(musicGain && audioCtx){
+      const t = audioCtx.currentTime;
+      musicGain.gain.cancelScheduledValues(t);
+      musicGain.gain.linearRampToValueAtTime(0.12, t + 0.6);
+    }
+  }
+
+  const voiceToggle = document.getElementById('voiceToggle');
+  voiceToggle.addEventListener('click', ()=>{
+    voiceOn = !voiceOn;
+    voiceToggle.classList.toggle('active', voiceOn);
+    if(voiceOn){
+      refreshVoices();
+      const label = chosenVoice
+        ? `🗣️ Voice: ${chosenVoice.name.split(' ')[0]}`
+        : '🗣️ Voice: none?';
+      voiceToggle.textContent = label;
+      voiceToggle.title = chosenVoice
+        ? `Using: ${chosenVoice.name} (${chosenVoice.lang})`
+        : 'No TTS voice found on this system.';
+      if(!chosenVoice){
+        alert("Tera browser/OS pe koi bhi text-to-speech voice install nahi hai.\n\nMac: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices → install any English/Hindi voice.");
+      } else {
+        speak('Chalo Coorg, mast pahaadon mein chai pite hain!');
+      }
+    } else {
+      voiceToggle.textContent = '🗣️ Voice';
+      if('speechSynthesis' in window){ window.speechSynthesis.cancel(); }
+    }
+  });
+
+  /* =========================
+     Breeze visuals: wind streaks + drifting petals
+     ========================= */
+  const breeze = document.getElementById('breeze');
+  function spawnWindStreak(){
+    const w = document.createElement('div');
+    w.className = 'wind';
+    w.style.top = (5 + Math.random()*85) + 'vh';
+    w.style.width = (80 + Math.random()*180) + 'px';
+    const dur = 3 + Math.random()*4;
+    w.style.animationDuration = dur + 's';
+    w.style.opacity = (0.25 + Math.random()*0.45).toFixed(2);
+    breeze.appendChild(w);
+    setTimeout(()=> w.remove(), dur*1000 + 200);
+  }
+  const petalGlyphs = ['🍃','�','🌱','☕','🍂'];
+  function spawnPetal(){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalGlyphs[Math.floor(Math.random()*petalGlyphs.length)];
+    p.style.left = (Math.random()*100) + 'vw';
+    const dur = 12 + Math.random()*10;
+    p.style.animationDuration = dur + 's';
+    p.style.fontSize = (14 + Math.random()*14) + 'px';
+    breeze.appendChild(p);
+    setTimeout(()=> p.remove(), dur*1000 + 200);
+  }
+  setInterval(()=>{ if(!document.hidden) spawnWindStreak(); }, 900);
+  setInterval(()=>{ if(!document.hidden) spawnPetal(); }, 1800);
+
+  /* Light rain (visual drizzle) */
+  const rainEl = document.getElementById('rain');
+  function spawnDrop(){
+    const d = document.createElement('div');
+    d.className = 'drop';
+    d.style.left = (Math.random()*100) + 'vw';
+    const dur = 0.6 + Math.random()*0.8;
+    d.style.animationDuration = dur + 's';
+    d.style.height = (10 + Math.random()*18) + 'px';
+    d.style.opacity = (0.3 + Math.random()*0.4).toFixed(2);
+    rainEl.appendChild(d);
+    setTimeout(()=> d.remove(), dur*1000 + 200);
+  }
+  setInterval(()=>{ if(!document.hidden) for(let i=0;i<3;i++) spawnDrop(); }, 120);
+
+  /* =========================
+     Procedural ocean crash — random distant wave SFX while ambience is on
+     ========================= */
+  function oceanCrash(){
+    if(!audioCtx || !ambStarted) return;
+    // soft, far-away crash: lowpass-swept noise + low body
+    const t0 = audioCtx.currentTime;
+    // noise body
+    const src = audioCtx.createBufferSource(); src.buffer = getNoise();
+    const lp = audioCtx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.setValueAtTime(2200, t0); lp.frequency.exponentialRampToValueAtTime(400, t0+2.2);
+    const hp = audioCtx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=180;
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(0.22, t0+0.25);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+2.2);
+    src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(ambGain);
+    src.start(t0); src.stop(t0+2.4);
+  }
+  function scheduleCrash(){
+    const next = 6000 + Math.random()*10000; // 6–16s gaps
+    setTimeout(()=>{ if(ambOn) oceanCrash(); scheduleCrash(); }, next);
+  }
+  scheduleCrash();
+
+  /* =========================
+     Floating music notes around dance crew
+     ========================= */
+  const notesBox = document.getElementById('notes');
+  const noteGlyphs = ['🎵','🎶','✨','🌟'];
+  setInterval(()=>{
+    if(document.hidden) return;
+    const n = document.createElement('div');
+    n.className = 'note';
+    n.textContent = noteGlyphs[Math.floor(Math.random()*noteGlyphs.length)];
+    n.style.left = (5 + Math.random()*90) + 'vw';
+    n.style.animationDuration = (3 + Math.random()*2.5) + 's';
+    n.style.fontSize = (16 + Math.random()*14) + 'px';
+    notesBox.appendChild(n);
+    setTimeout(()=> n.remove(), 6000);
+  }, 700);
+
+  /* =========================
+     Runaway "No" button
+     ========================= */
+  const noBtn = document.getElementById('noBtn');
+  const wrap  = document.getElementById('ctaWrap');
+  const taunt = document.getElementById('taunt');
+  const modal = document.getElementById('modal');
+  const reason = document.getElementById('reason');
+
+  const taunts = [
+    "Arre pakad ke dikha pehle 😏",
+    "No button bhi Coorg jaana chahta hai ⛰️",
+    "Bhaag bhaag DK Bose 🏃‍♂️",
+    "Aise click karega toh kabhi nahi milega 😜",
+    "Try again champ 💪",
+    "Coffee toh peeni padegi bhai ☕",
+    "Oye hoye, kya cursor speed hai 🐢",
+    "Ek baar maa kasam khaake try kar 🤞",
+    "Tu pakka Ravi hai — chup-chap chal le 🙃",
+    "Itna soch mat, Ravi mode off kar 😅",
+    "Padhai wale haath se mat click kar 📚➡️⛰️",
+    "Arre yaar, FOMO ho jayega 📸",
+    "Button: 'Mujhe mat dabao, mujhe bhi pahaadon mein jaana hai' 🥺",
+    "Tera DP pe ek mist wali pic nahi… sharam kar 😤",
+    "Excel chhod, mist dekh 🌫️",
+    "Office ki kursi se utha pehle uth 🪑",
+    "Bhai sirf 4 din ki baat hai, jeevan nahi 🙏",
+    "Ravi bhai, tu hi toh asli hero hai trip ka 🦸",
+    "Ek try aur, fir Sharma ji ke bete ban jaa 😎",
+    "Bhakk yaar, click toh kar 🤣",
+  ];
+  const tauntVoice = [
+    "Arre pakad ke dikha pehle",
+    "Coorg chal na yaar",
+    "Bhaag bhaag DK Bose",
+    "Itna mat soch, haan bol",
+    "Try again champion",
+    "Tu pakka Ravi hai, chup chap chal le",
+    "Ravi bhai, sirf chaar din ki baat hai",
+    "Bhakk yaar, click toh kar",
+  ];
+
+  const reasons = [
+    "Excuse: 'Kaam hai' — bhai June mein? Sab ko pata hai jhooth hai 😂",
+    "Excuse: 'Paise nahi hain' — EMI hai na, beta. 3 mahine, no cost 🤝",
+    "Excuse: 'Mausam kharab' — Coorg mist = aesthetic max 🌫️☕",
+    "Excuse: 'Akela feel hoga' — gang chal rahi hai, akela toh ghar pe hai tu 😭",
+    "Excuse: 'Gym miss ho jayega' — trekking hi gym hai, content bhi banega 💪📸",
+    "Excuse: 'Mummy nahi maanegi' — tu 30 ka ho gaya bhai 🧓",
+    "Excuse: 'Ghar ka kaam' — chhod, sab Ravi pe daal de 😉",
+    "Excuse: 'Sone ka mann hai' — estate mein 9pm tak sab so jate hain, paradise hai 🛏️😴",
+  ];
+
+  let attempts = 0;
+  function moveAway(){
+    ensureAudio();
+    attempts++;
+    const w = wrap.getBoundingClientRect();
+    const bw = noBtn.offsetWidth;
+    const bh = noBtn.offsetHeight;
+    if(!noBtn.classList.contains('runaway')){
+      noBtn.classList.add('runaway');
+      noBtn.style.position = 'absolute';
+    }
+    const maxX = Math.max(20, w.width - bw - 20);
+    const maxY = Math.max(60, w.height - bh - 10);
+    noBtn.style.left = (Math.random() * maxX) + 'px';
+    noBtn.style.top  = (Math.random() * maxY) + 'px';
+    // wilder rotation + occasional shrink to make it more chaotic
+    const rot = (Math.random()*60 - 30).toFixed(1);
+    const scale = (0.85 + Math.random()*0.35).toFixed(2);
+    noBtn.style.transform = `rotate(${rot}deg) scale(${scale})`;
+
+    // Ravi-callout 1 in 4
+    if(attempts >= 2 && Math.random() < 0.28){
+      taunt.textContent = "Ravi! tu hi roz aisa karta hai 😤 — chal click kar!";
+    } else {
+      taunt.textContent = taunts[Math.floor(Math.random()*taunts.length)];
+    }
+    sfx('no');
+
+    // Every other attempt, say something
+    if(attempts % 2 === 0){
+      speak(tauntVoice[Math.floor(Math.random()*tauntVoice.length)]);
+    }
+
+    // Let it run longer — surrender at 8
+    if(attempts >= 8){
+      reason.textContent = reasons[Math.floor(Math.random()*reasons.length)];
+      modal.classList.add('show');
+      sfx('pop');
+      speak("Bas kar Ravi, chal Coorg!");
+    }
+  }
+  noBtn.addEventListener('mouseenter', moveAway);
+  noBtn.addEventListener('touchstart', moveAway, {passive:true});
+  noBtn.addEventListener('click', (e)=>{ e.preventDefault(); moveAway(); });
+  noBtn.addEventListener('focus', moveAway);
+
+  document.getElementById('okFine').addEventListener('click', ()=>{
+    modal.classList.remove('show');
+    sayYes();
+  });
+  document.getElementById('stillNo').addEventListener('click', ()=>{
+    reason.textContent = reasons[Math.floor(Math.random()*reasons.length)];
+    sfx('no');
+  });
+
+  /* =========================
+     YES flow
+     ========================= */
+  const yesBtn = document.getElementById('yesBtn');
+  const plan = document.getElementById('plan');
+  let revealed = false;
+
+  function sayYes(){
+    ensureAudio();
+    yesBtn.classList.remove('pulse');
+    plan.classList.add('show');
+    confettiBurst();
+    sfx('cheer');
+    speak("Chalo Coorg! Mast trip karenge!", {rate: 1.05, pitch: 1.1});
+    if(!revealed){
+      revealed = true;
+      setTimeout(()=> plan.scrollIntoView({behavior:'smooth', block:'start'}), 250);
+    }
+    taunt.textContent = "Yesss! 🎉 Tu real MVP hai. Ab niche scroll kar.";
+  }
+  yesBtn.addEventListener('click', sayYes);
+
+  /* =========================
+     Generic SFX hooks
+     ========================= */
+  document.addEventListener('click', (e)=>{
+    const t = e.target.closest('[data-sfx]');
+    if(t){ sfx(t.dataset.sfx || 'click'); }
+  }, true);
+
+  /* =========================
+     Confetti
+     ========================= */
+  function confettiBurst(){
+    const colors = ['#3f7c4f','#6f4e37','#a8c895','#22c55e','#ef4444','#ffb703'];
+    const symbols = ['⛰️','☕','🌲','🌧️','🍃','✨'];
+    for(let i=0;i<90;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = Math.random()*100 + 'vw';
+      c.style.background = colors[i%colors.length];
+      if(i%9===0){ // occasional emoji
+        c.style.background='transparent';
+        c.style.width='auto'; c.style.height='auto';
+        c.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        c.style.fontSize = (16+Math.random()*16)+'px';
+      }
+      c.style.transform = `rotate(${Math.random()*360}deg)`;
+      const dur = 2 + Math.random()*2.5;
+      c.animate(
+        [{transform:`translateY(-20px) rotate(0deg)`}, {transform:`translateY(105vh) rotate(${720}deg)`}],
+        {duration: dur*1000, easing:'cubic-bezier(.2,.6,.2,1)'}
+      );
+      document.body.appendChild(c);
+      setTimeout(()=> c.remove(), dur*1000 + 100);
+    }
+  }
+
+  /* =========================
+     RSVP (localStorage)
+     ========================= */
+  const KEY = 'coorg_rsvp_v1';
+  const whoList = document.getElementById('whoList');
+  const nameIn = document.getElementById('name');
+  function renderWho(){
+    const list = JSON.parse(localStorage.getItem(KEY) || '[]');
+    whoList.innerHTML = list.length
+      ? list.map(n => `<span>✅ ${escapeHtml(n)}</span>`).join('')
+      : '<span style="background:#fff7e6;border-color:#f3c98a;color:#8a5b00">Abhi tak koi nahi… pehla tu ban 👀</span>';
+  }
+  function escapeHtml(s){return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  document.getElementById('rsvp').addEventListener('click', ()=>{
+    const v = (nameIn.value || '').trim().slice(0,40);
+    if(!v){ nameIn.focus(); sfx('no'); return; }
+    const list = JSON.parse(localStorage.getItem(KEY) || '[]');
+    if(!list.includes(v)) list.push(v);
+    localStorage.setItem(KEY, JSON.stringify(list));
+    nameIn.value='';
+    renderWho();
+    confettiBurst();
+    sfx('cheer');
+    speak(`Welcome ${v}, Coorg chalein!`, {rate:1.05});
+  });
+  renderWho();
+
+  /* =========================
+     Itinerary video posters — click to play YouTube inline.
+     Uses YT.Player so we can detect when video ends and resume the Coorg song.
+     ⚠️ Each <div class="img video-thumb" data-video="..."> needs a real video ID.
+     ========================= */
+  let dayVideoCounter = 0;
+
+  function restoreSongAfterDayVideo(){
+    // Bring procedural synth music back to its ducked level
+    if(musicGain && audioCtx){
+      const t = audioCtx.currentTime;
+      musicGain.gain.cancelScheduledValues(t);
+      musicGain.gain.linearRampToValueAtTime(0.12, t + 0.5);
+    }
+    // Resume Coorg song
+    if(ytReady && ytPlayer && songOn){
+      try{ ytPlayer.unMute(); ytPlayer.playVideo(); }catch(e){}
+    }
+  }
+
+  function openDayVideo(thumbEl){
+    const id = thumbEl.dataset.video;
+    if(!id || id.startsWith('PASTE_')){
+      alert("Is din ka video ID set nahi hai.\n\nindex.html me .day .img.video-thumb data-video='PASTE_DAY1_ID' jaisi line dhoondh, aur YouTube video ID paste kar de.");
+      return;
+    }
+
+    // Build wrapper that will replace the thumbnail
+    const playerId = 'dayvid-' + (++dayVideoCounter);
+    const wrap = document.createElement('div');
+    wrap.className = 'video-wrap';
+    wrap.innerHTML = `<div id="${playerId}"></div><button class="video-close" type="button" aria-label="Close video">×</button>`;
+
+    // Keep a reference so we can restore the thumbnail on close
+    const parent = thumbEl.parentNode;
+    const placeholder = thumbEl;  // we'll re-insert it when user closes
+    parent.replaceChild(wrap, thumbEl);
+
+    // Mute Coorg song + fully silence synth music while video plays
+    if(musicGain && audioCtx){
+      const t = audioCtx.currentTime;
+      musicGain.gain.cancelScheduledValues(t);
+      musicGain.gain.linearRampToValueAtTime(0.0, t + 0.3);
+    }
+    if(ytPlayer && songOn){ try{ ytPlayer.pauseVideo(); }catch(e){} }
+
+    let dayPlayer = null;
+    const createPlayer = () => {
+      dayPlayer = new YT.Player(playerId, {
+        width: '100%', height: '200', videoId: id,
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1 },
+        host: 'https://www.youtube-nocookie.com',
+        events: {
+          onStateChange: (e) => {
+            // ENDED = 0 → restore song
+            if(e.data === 0){
+              try{ dayPlayer.destroy(); }catch(_){}
+              wrap.replaceWith(placeholder);
+              restoreSongAfterDayVideo();
+            }
+          }
+        }
+      });
+    };
+    if(window.YT && window.YT.Player){ createPlayer(); }
+    else {
+      // Wait for the API (already requested when page loaded)
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function(){ if(prev) prev(); createPlayer(); };
+    }
+
+    wrap.querySelector('.video-close').addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      try{ if(dayPlayer && dayPlayer.destroy) dayPlayer.destroy(); }catch(_){}
+      wrap.replaceWith(placeholder);
+      restoreSongAfterDayVideo();
+    });
+  }
+
+  document.querySelectorAll('.day .img.video-thumb').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openDayVideo(el);
+    });
+  });
+
+  /* Resume audio + auto-start ambience + auto-start music + auto-start Coorg song on first user gesture */
+  function firstGesture(){
+    ensureAudio();
+    if(!ambStarted) startAmbience();
+    if(musicOn) startMusic();           // procedural music defaults to ON
+    duckMusicForSong();                 // sit synth under the song
+    if(ytReady && ytPlayer){            // YouTube song defaults to ON
+      try{ ytPlayer.unMute(); ytPlayer.playVideo(); }catch(e){}
+    }
+  }
+  ['click','touchstart','keydown'].forEach(ev =>
+    window.addEventListener(ev, firstGesture, {once:true, passive:true})
+  );
+</script>
+</body>
+</html>
