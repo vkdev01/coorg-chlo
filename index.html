@@ -394,6 +394,7 @@
   <div class="brand">Chalo <span>Coorg</span> ☕</div>
   <div class="nav-actions">
     <button class="toggle active" id="ambToggle"   title="Forest + birdsong ambience (on by default)">🌲 Ambience</button>
+    <button class="toggle active" id="songToggle"  title="Background song (Ilahi)">🎵 Song</button>
     <button class="toggle active" id="musicToggle" title="Cheeky Coorg coffee-shack synth loop">🎶 Music</button>
     <button class="toggle active" id="soundToggle" title="Click sound effects">🔊 SFX</button>
     <button class="toggle"        id="voiceToggle" title="Hindi voice on/off (robotic, off by default)">🗣️ Voice</button>
@@ -733,13 +734,22 @@
       return;
     }
     if(!chosenVoice) refreshVoices();
-    // Cancel any in-flight utterance, then speak SYNCHRONOUSLY so we keep
-    // the user-gesture chain alive (Safari otherwise blocks the call).
-    try { window.speechSynthesis.cancel(); } catch(e){}
+    const synth = window.speechSynthesis;
+
+    // Chrome/macOS bug: after long idle, synth gets "stuck" — kicking pause+resume
+    // wakes it up before we queue a new utterance.
+    try { synth.resume(); } catch(e){}
+
+    // Only cancel if something is actually speaking. Doing cancel() on an idle
+    // queue right before speak() is what silently drops the utterance on Chrome.
+    if(synth.speaking || synth.pending){
+      try { synth.cancel(); } catch(e){}
+    }
+
     const u = new SpeechSynthesisUtterance(text);
     if(chosenVoice){
       u.voice = chosenVoice;
-      u.lang  = chosenVoice.lang;   // match the voice, don't force hi-IN if voice is en-*
+      u.lang  = chosenVoice.lang;
     } else {
       u.lang = 'en-IN';
     }
@@ -747,8 +757,18 @@
     u.pitch  = opts.pitch  ?? 1;
     u.volume = opts.volume ?? 1;
     u.onerror = (ev) => console.warn('TTS error:', ev.error, ev);
-    try { window.speechSynthesis.speak(u); }
+    try { synth.speak(u); }
     catch(e){ console.warn('TTS speak failed:', e); }
+
+    // Chrome bug workaround: long utterances can cut off after ~15s. Tickle
+    // the synth periodically while speaking.
+    if(!speak._tickle){
+      speak._tickle = setInterval(()=>{
+        try{
+          if(synth.speaking){ synth.pause(); synth.resume(); }
+        }catch(e){}
+      }, 10000);
+    }
   }
 
   /* =========================
@@ -985,23 +1005,20 @@
   let ytReady = false;
   let songOn = true;   // Coorg song always on by default (no toggle)
 
-  // Inject the YouTube IFrame API once
-  (function loadYT(){
-    if(window.YT && window.YT.Player) return;
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  })();
-  // Hidden mount point
-  (function mountYTHost(){
-    const host = document.createElement('div');
-    host.id = 'ytSongHost';
-    host.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
-    host.innerHTML = '<div id="ytSong"></div>';
-    document.body.appendChild(host);
-  })();
+  // ⚠️ IMPORTANT: define the global callback BEFORE injecting the YT script.
+  // If the script is already cached, it can fire onYouTubeIframeAPIReady the
+  // moment it executes — if the callback isn't there yet, ytPlayer is never
+  // built and the song silently never plays.
   window.onYouTubeIframeAPIReady = function(){
     if(!YT_SONG_ID || YT_SONG_ID === 'PASTE_VIDEO_ID_HERE') return;
+    // Make sure the host div exists before we attach
+    if(!document.getElementById('ytSong')){
+      const host = document.createElement('div');
+      host.id = 'ytSongHost';
+      host.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
+      host.innerHTML = '<div id="ytSong"></div>';
+      document.body.appendChild(host);
+    }
     ytPlayer = new YT.Player('ytSong', {
       height: '0', width: '0', videoId: YT_SONG_ID,
       playerVars: {
@@ -1011,29 +1028,93 @@
       events: {
         onReady: () => {
           ytReady = true;
-          // Most browsers block autoplay-with-sound until a user gesture happens.
-          // We try here optimistically (works on desktop Chrome usually); the
-          // real reliable kick happens via the first-gesture hook below.
-          if(songOn){ try{ ytPlayer.unMute(); ytPlayer.playVideo(); }catch(e){} }
+          // Optimistic try; the reliable kick is the first-gesture handler below.
+          if(songOn){
+            try{ ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo(); }
+            catch(e){ /* gesture-required, will retry on click */ }
+          }
         },
         onError: (e) => console.warn('YouTube player error:', e)
       }
     });
   };
 
+  // Inject the YouTube IFrame API once (callback above is now ready)
+  (function loadYT(){
+    if(window.YT && window.YT.Player){
+      // Already loaded by something else — invoke our callback manually
+      if(typeof window.onYouTubeIframeAPIReady === 'function') window.onYouTubeIframeAPIReady();
+      return;
+    }
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  })();
+  // Pre-create the hidden mount point in case the API arrives slowly
+  (function mountYTHost(){
+    if(document.getElementById('ytSong')) return;
+    const host = document.createElement('div');
+    host.id = 'ytSongHost';
+    host.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
+    host.innerHTML = '<div id="ytSong"></div>';
+    document.body.appendChild(host);
+  })();
+
   // Kick the YT song on the first real user gesture (click / touch / key).
   // Safari & mobile Chrome will not autoplay otherwise.
+  // We retry on every gesture until the player is actually ready and playing.
   let songKicked = false;
   function kickYTSong(){
     if(songKicked) return;
-    if(!ytReady || !ytPlayer || !songOn) return;
-    songKicked = true;
-    try{ ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo(); }
-    catch(e){ console.warn('YT kick failed:', e); }
+    if(!songOn) return;
+    if(!ytReady || !ytPlayer){
+      // Try once more after the API has had a moment to come online
+      setTimeout(kickYTSong, 600);
+      return;
+    }
+    try{
+      ytPlayer.unMute();
+      ytPlayer.setVolume(70);
+      ytPlayer.playVideo();
+      // Verify after a tick — only mark kicked if it actually started
+      setTimeout(()=>{
+        try{
+          const st = ytPlayer.getPlayerState && ytPlayer.getPlayerState();
+          // 1 = playing, 3 = buffering. Anything else — retry next gesture.
+          if(st === 1 || st === 3) songKicked = true;
+        }catch(e){}
+      }, 400);
+    }
+    catch(e){ console.warn('YT kick failed, will retry on next gesture:', e); }
   }
-  ['pointerdown','touchstart','keydown'].forEach(ev =>
-    document.addEventListener(ev, kickYTSong, { once:false, passive:true })
+  ['pointerdown','touchstart','click','keydown'].forEach(ev =>
+    document.addEventListener(ev, kickYTSong, { passive:true })
   );
+
+  // Manual song toggle — guaranteed user gesture, fixes any autoplay block
+  const songToggle = document.getElementById('songToggle');
+  if(songToggle){
+    songToggle.addEventListener('click', ()=>{
+      songOn = !songOn;
+      songToggle.classList.toggle('active', songOn);
+      songToggle.textContent = songOn ? '🎵 Song' : '🎵 Song: OFF';
+      if(!ytPlayer){
+        // API still loading — try again shortly
+        setTimeout(kickYTSong, 200);
+        return;
+      }
+      try{
+        if(songOn){
+          ytPlayer.unMute();
+          ytPlayer.setVolume(70);
+          ytPlayer.playVideo();
+          songKicked = true;
+        } else {
+          ytPlayer.pauseVideo();
+        }
+      }catch(e){ console.warn('Song toggle failed:', e); }
+    });
+  }
 
   // Coorg song is always on — no toggle. Duck the procedural synth music
   // permanently so it sits under the YouTube track without fighting it.
@@ -1051,21 +1132,38 @@
     voiceToggle.classList.toggle('active', voiceOn);
     if(voiceOn){
       refreshVoices();
-      const label = chosenVoice
-        ? `🗣️ Voice: ${chosenVoice.name.split(' ')[0]}`
-        : '🗣️ Voice: none?';
-      voiceToggle.textContent = label;
-      voiceToggle.title = chosenVoice
-        ? `Using: ${chosenVoice.name} (${chosenVoice.lang})`
-        : 'No TTS voice found on this system.';
-      if(!chosenVoice){
-        alert("Tera browser/OS pe koi bhi text-to-speech voice install nahi hai.\n\nMac: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices → install any English/Hindi voice.");
-      } else {
+
+      // Chrome on macOS often returns [] on the very first getVoices() call.
+      // Pre-warm the engine by speaking an empty utterance INSIDE the user
+      // gesture, then retry voice selection on the voiceschanged event.
+      try{
+        const warmup = new SpeechSynthesisUtterance(' ');
+        warmup.volume = 0; warmup.rate = 1;
+        window.speechSynthesis.speak(warmup);
+      }catch(e){}
+
+      const announce = () => {
+        refreshVoices();
+        const label = chosenVoice
+          ? `🗣️ Voice: ${chosenVoice.name.split(' ')[0]}`
+          : '🗣️ Voice: default';
+        voiceToggle.textContent = label;
+        voiceToggle.title = chosenVoice
+          ? `Using: ${chosenVoice.name} (${chosenVoice.lang})`
+          : 'Falling back to default browser voice';
         speak('Chalo Coorg, mast pahaadon mein chai pite hain!');
+      };
+
+      if(chosenVoice){
+        announce();
+      } else {
+        // Wait briefly for voices to populate, then announce no matter what
+        setTimeout(announce, 250);
+        setTimeout(()=>{ if(voiceOn && !speak._didIntro){ speak._didIntro = true; announce(); } }, 800);
       }
     } else {
       voiceToggle.textContent = '🗣️ Voice';
-      if('speechSynthesis' in window){ window.speechSynthesis.cancel(); }
+      if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
     }
   });
 
