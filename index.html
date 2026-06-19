@@ -999,19 +999,30 @@
      Suggestions: "Kun Faya Kun", "Phir Le Aaya Dil", "Naina", or any chill
         Hindi/instrumental track for misty hills vibes.
      ========================= */
-  const YT_SONG_ID = 'fdubeMTA9wA';   // Ilahi — Yeh Jawaani Hai Deewani
+  // Primary + fallback song IDs. If YT refuses to embed one (error 101/150 —
+  // common for Bollywood tracks), we automatically try the next.
+  const YT_SONG_IDS = [
+    'fdubeMTA9wA',   // Ilahi — Yeh Jawaani Hai Deewani
+    '69Eon_unCkw',   // Ilahi (alternative upload)
+    'YnopHCL1Jk8',   // Safarnama — Tamasha
+    'Y2J2OgcM5G0',   // Patakha Guddi — Highway
+  ];
+  let ytSongIdx = 0;
 
   let ytPlayer = null;
   let ytReady = false;
   let songOn = true;   // Coorg song always on by default (no toggle)
+
+  function setSongStatus(txt){
+    const el = document.getElementById('songToggle');
+    if(el) el.title = txt;
+  }
 
   // ⚠️ IMPORTANT: define the global callback BEFORE injecting the YT script.
   // If the script is already cached, it can fire onYouTubeIframeAPIReady the
   // moment it executes — if the callback isn't there yet, ytPlayer is never
   // built and the song silently never plays.
   window.onYouTubeIframeAPIReady = function(){
-    if(!YT_SONG_ID || YT_SONG_ID === 'PASTE_VIDEO_ID_HERE') return;
-    // Make sure the host div exists before we attach
     if(!document.getElementById('ytSong')){
       const host = document.createElement('div');
       host.id = 'ytSongHost';
@@ -1019,22 +1030,50 @@
       host.innerHTML = '<div id="ytSong"></div>';
       document.body.appendChild(host);
     }
+    const id = YT_SONG_IDS[ytSongIdx];
+    setSongStatus('Loading: ' + id);
     ytPlayer = new YT.Player('ytSong', {
-      height: '0', width: '0', videoId: YT_SONG_ID,
+      height: '0', width: '0', videoId: id,
       playerVars: {
         autoplay: 0, controls: 0, disablekb: 1, modestbranding: 1,
-        playsinline: 1, rel: 0, loop: 1, playlist: YT_SONG_ID
+        playsinline: 1, rel: 0, loop: 1, playlist: id,
+        origin: window.location.origin
       },
       events: {
         onReady: () => {
           ytReady = true;
-          // Optimistic try; the reliable kick is the first-gesture handler below.
+          setSongStatus('Ready: ' + id);
           if(songOn){
             try{ ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo(); }
             catch(e){ /* gesture-required, will retry on click */ }
           }
         },
-        onError: (e) => console.warn('YouTube player error:', e)
+        onStateChange: (e) => {
+          // 1=playing 2=paused 3=buffering 5=cued 0=ended -1=unstarted
+          const map = {1:'playing',2:'paused',3:'buffering',5:'cued',0:'ended','-1':'unstarted'};
+          setSongStatus('State: ' + (map[e.data] || e.data));
+        },
+        onError: (e) => {
+          // 2=invalid id, 5=html5 error, 100=removed, 101/150=embedding disabled
+          console.warn('YT error code', e.data, 'for', id);
+          setSongStatus('Error ' + e.data + ' on ' + id + ' — trying next');
+          // Try next fallback
+          ytSongIdx++;
+          if(ytSongIdx < YT_SONG_IDS.length){
+            const nextId = YT_SONG_IDS[ytSongIdx];
+            try{
+              ytPlayer.loadVideoById({ videoId: nextId });
+              // Update loop playlist too
+              setTimeout(()=>{ try{ ytPlayer.cuePlaylist({playlist:[nextId], listType:'playlist'}); }catch(_){} }, 100);
+              setSongStatus('Trying: ' + nextId);
+              if(songOn){
+                try{ ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo(); }catch(_){}
+              }
+            }catch(err){ console.warn('Fallback load failed:', err); }
+          } else {
+            setSongStatus('All YT songs blocked from embedding');
+          }
+        }
       }
     });
   };
