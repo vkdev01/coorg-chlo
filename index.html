@@ -67,14 +67,16 @@
   .wave.w4{animation:waveX 240s linear infinite reverse, waveY 18s ease-in-out infinite;opacity:.55;bottom:54px;animation-delay:-4s}
   @keyframes waveX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @keyframes waveY{0%,100%{filter:none}50%{filter:brightness(1.04)}}
-  /* mist puffs riding above the hills */
-  .foam{position:absolute;bottom:140px;width:60px;height:18px;border-radius:12px;background:rgba(255,255,255,.55);filter:blur(6px);opacity:0;animation:foamPop 6s ease-out infinite}
-  @keyframes foamPop{0%{transform:translateY(20px) scale(.6);opacity:0}30%{opacity:.55}100%{transform:translateY(-40px) scale(1.4);opacity:0}}
+  /* mist puffs riding above the hills (more visible for Coorg) */
+  .foam{position:absolute;bottom:120px;width:120px;height:32px;border-radius:18px;background:rgba(255,255,255,.6);filter:blur(10px);opacity:0;animation:foamPop 8s ease-out infinite}
+  @keyframes foamPop{0%{transform:translate(-30px,30px) scale(.4);opacity:0}25%{opacity:.7}100%{transform:translate(60px,-50px) scale(1.6);opacity:0}}
 
-  /* light rain (drizzle) */
-  .rain{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-  .drop{position:absolute;top:-10vh;width:1.5px;height:18px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(180,210,200,.7));border-radius:1px;animation:rainFall linear infinite;opacity:.6}
-  @keyframes rainFall{from{transform:translateY(0)}to{transform:translateY(120vh)}}
+  /* drifting fog band */
+  .fog{position:fixed;left:-25vw;right:-25vw;height:120px;pointer-events:none;z-index:1;opacity:.55;background:radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.85), rgba(255,255,255,0));filter:blur(14px);animation:fogX 60s linear infinite}
+  .fog.f1{top:32%;animation-duration:80s}
+  .fog.f2{top:48%;animation-duration:110s;animation-direction:reverse;opacity:.4}
+  .fog.f3{top:62%;animation-duration:140s;opacity:.3}
+  @keyframes fogX{from{transform:translateX(0)}to{transform:translateX(20vw)}}
 
   /* breeze: horizontal wind streaks drifting */
   .breeze{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
@@ -87,6 +89,15 @@
     50%  {transform:translate(40px,55vh) rotate(180deg)}
     100% {transform:translate(-30px,120vh) rotate(360deg)}
   }
+
+  /* bonfire */
+  .bonfire{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:1;pointer-events:none;width:80px;height:90px;filter:drop-shadow(0 0 24px rgba(255,140,30,.45))}
+  .bonfire .flame{transform-origin:50% 90%;animation:flicker 1.3s ease-in-out infinite}
+  .bonfire .flame.f2{animation-duration:1.05s;animation-delay:.2s;opacity:.85}
+  .bonfire .flame.f3{animation-duration:.85s;animation-delay:.4s;opacity:.7}
+  @keyframes flicker{0%,100%{transform:scale(1,1) translateY(0)}50%{transform:scale(1.05,1.12) translateY(-2px)}}
+  .bonfire .ember{position:absolute;left:50%;bottom:30px;width:4px;height:4px;border-radius:50%;background:#ffb300;animation:ember 2.4s ease-out infinite;box-shadow:0 0 6px #ffb300}
+  @keyframes ember{0%{transform:translate(-50%,0) scale(1);opacity:0}10%{opacity:1}100%{transform:translate(calc(-50% + var(--dx, 0px)),-90px) scale(.4);opacity:0}}
 
   /* dancing emojis row */
   .dance{position:fixed;left:0;right:0;bottom:8px;text-align:center;z-index:2;pointer-events:none;font-size:30px;letter-spacing:6px}
@@ -336,8 +347,29 @@
   </div>
 </div>
 
-<!-- Rain layer -->
-<div class="rain" id="rain" aria-hidden="true"></div>
+<!-- Drifting fog bands across the hills -->
+<div class="fog f1" aria-hidden="true"></div>
+<div class="fog f2" aria-hidden="true"></div>
+<div class="fog f3" aria-hidden="true"></div>
+
+<!-- Bonfire (Coorg homestay vibes) -->
+<div class="bonfire" aria-hidden="true">
+  <svg viewBox="0 0 80 90" width="80" height="90">
+    <!-- logs -->
+    <g stroke="#5b3a18" stroke-width="3" stroke-linecap="round" fill="#7a4a1a">
+      <line x1="14" y1="80" x2="66" y2="80"/>
+      <line x1="18" y1="84" x2="62" y2="84"/>
+      <line x1="22" y1="78" x2="58" y2="78"/>
+    </g>
+    <!-- flames stacked: outer orange → mid yellow → inner white -->
+    <path class="flame f1" d="M40,84 C18,70 22,50 40,18 C58,50 62,70 40,84 Z" fill="#ff7a18"/>
+    <path class="flame f2" d="M40,82 C26,72 30,55 40,30 C50,55 54,72 40,82 Z" fill="#ffb547"/>
+    <path class="flame f3" d="M40,80 C32,72 36,60 40,42 C44,60 48,72 40,80 Z" fill="#fff4b5"/>
+  </svg>
+  <span class="ember" style="--dx:-12px;animation-delay:0s"></span>
+  <span class="ember" style="--dx:14px;animation-delay:.6s"></span>
+  <span class="ember" style="--dx:-4px;animation-delay:1.2s"></span>
+</div>
 
 <!-- Breeze layer: wind streaks + drifting leaves/coffee beans -->
 <div class="breeze" id="breeze" aria-hidden="true"></div>
@@ -361,7 +393,7 @@
 <div class="nav">
   <div class="brand">Chalo <span>Coorg</span> ☕</div>
   <div class="nav-actions">
-    <button class="toggle active" id="ambToggle"   title="Hills + breeze ambience (on by default)">🌲 Ambience</button>
+    <button class="toggle active" id="ambToggle"   title="Forest + birdsong ambience (on by default)">🌲 Ambience</button>
     <button class="toggle active" id="musicToggle" title="Cheeky Coorg coffee-shack synth loop">🎶 Music</button>
     <button class="toggle active" id="soundToggle" title="Click sound effects">🔊 SFX</button>
     <button class="toggle"        id="voiceToggle" title="Hindi voice on/off (robotic, off by default)">🗣️ Voice</button>
@@ -416,7 +448,7 @@
       <p class="lead">Tap kisi bhi din pe — video chalega 🎬 (IDs config in script)</p>
       <div class="days">
         <article class="day" data-sfx="wave">
-          <div class="img video-thumb" data-video="PASTE_DAY1_ID" style="background-image:url('https://images.unsplash.com/photo-1580674684089-5c8b0bbcbf3a?auto=format&fit=crop&w=800&q=70')">
+          <div class="img video-thumb" data-video="jXmagDv7O-U" style="background-image:url('https://images.unsplash.com/photo-1580674684089-5c8b0bbcbf3a?auto=format&fit=crop&w=800&q=70')">
             <span class="badge">Day 1 · Arrive</span>
             <span class="emoji-pop">🛬</span>
             <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -428,7 +460,7 @@
         </article>
 
         <article class="day" data-sfx="wave">
-          <div class="img video-thumb" data-video="PASTE_DAY2_ID" style="background-image:url('https://images.unsplash.com/photo-1572979758879-7ad8a161dee9?auto=format&fit=crop&w=800&q=70')">
+          <div class="img video-thumb" data-video="ToCVej0uaZ4" style="background-image:url('https://images.unsplash.com/photo-1572979758879-7ad8a161dee9?auto=format&fit=crop&w=800&q=70')">
             <span class="badge">Day 2 · Falls + Elephants</span>
             <span class="emoji-pop">💦</span>
             <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -440,7 +472,7 @@
         </article>
 
         <article class="day" data-sfx="wave">
-          <div class="img video-thumb" data-video="PASTE_DAY3_ID" style="background-image:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=70')">
+          <div class="img video-thumb" data-video="EA8rr5nB75k" style="background-image:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=70')">
             <span class="badge">Day 3 · Sunrise jeep</span>
             <span class="emoji-pop">🌅</span>
             <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -452,7 +484,7 @@
         </article>
 
         <article class="day" data-sfx="wave">
-          <div class="img video-thumb" data-video="PASTE_DAY4_ID" style="background-image:url('https://images.unsplash.com/photo-1597211833712-5e41faa202ea?auto=format&fit=crop&w=800&q=70')">
+          <div class="img video-thumb" data-video="mZ5QqSdlReQ" style="background-image:url('https://images.unsplash.com/photo-1597211833712-5e41faa202ea?auto=format&fit=crop&w=800&q=70')">
             <span class="badge">Day 4 · Talakaveri</span>
             <span class="emoji-pop">🛕</span>
             <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -464,7 +496,7 @@
         </article>
 
         <article class="day" data-sfx="wave">
-          <div class="img video-thumb" data-video="PASTE_DAY5_ID" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=70')">
+          <div class="img video-thumb" data-video="UWUJMMGPqxs" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=70')">
             <span class="badge">Day 5 · Bye</span>
             <span class="emoji-pop">🥹</span>
             <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -491,7 +523,7 @@
       <p class="lead">Bhool gaya toh fir bahane.</p>
       <div class="opt"><div><b>🧥 Light jacket / fleece</b><small>Subah 18°C — chai chahiye</small></div></div>
       <div class="opt"><div><b>👟 Trekking shoes</b><small>Mandalpatti pe slippers? Nahi.</small></div></div>
-      <div class="opt"><div><b>☂️ Rain jacket / poncho</b><small>June = surprise drizzle</small></div></div>
+      <div class="opt"><div><b>☂️ Light umbrella / poncho</b><small>Coorg mein kabhi bhi pakad le baarish</small></div></div>
       <div class="opt"><div><b>🦟 Mosquito repellent</b><small>Estate stays mein zaroori</small></div></div>
       <div class="opt"><div><b>📸 Charger + power bank</b><small>Network thoda meh, photos zaroor</small></div></div>
     </div>
@@ -650,9 +682,9 @@
         pluck({freq:520, dur:0.12, type:'sine', vol:0.22, filterFreq:1800, glideTo:1100, sendDelay:0.15});
         break;
       case 'wave':
-        // splash: noise sweep low->high, with a soft tonal body
-        noise({dur:0.7, vol:0.22, type:'bandpass', freq:300, Q:0.8, sweepTo:1800, sendDelay:0.3});
-        pluck({freq:160, dur:0.6, type:'sine', vol:0.10, filterFreq:600, sendDelay:0.2});
+        // Coorg "forest tap" — a tiny wood-block + bird-ish chirp
+        pluck({freq:1400, dur:0.06, type:'triangle', vol:0.12, filterFreq:3500, sendDelay:0.1});
+        pluck({freq:2200, dur:0.10, type:'sine', vol:0.08, filterFreq:4000, when:0.04, glideTo:2900, sendDelay:0.15});
         break;
       case 'no':
         // playful "uh-uh" — two short low blips
@@ -741,37 +773,32 @@
       return b;
     };
 
-    // ---------- OCEAN ----------
-    // Two slightly different noise streams panned L/R for width.
-    const makeOceanChannel = (pan) => {
+    // ---------- FOREST PAD (replaces ocean) ----------
+    // Soft, low-passed noise as a continuous "forest body" —
+    // think distant rustling leaves + insect hum, not waves.
+    const makeForestChannel = (pan) => {
       const src = audioCtx.createBufferSource();
       src.buffer = makeNoise(6); src.loop = true;
 
       const hp = audioCtx.createBiquadFilter(); hp.type='highpass';
-      hp.frequency.value = 90; hp.Q.value = 0.2;
+      hp.frequency.value = 300; hp.Q.value = 0.3;
 
       const lp = audioCtx.createBiquadFilter(); lp.type='lowpass';
-      lp.frequency.value = 700; lp.Q.value = 0.5;
+      lp.frequency.value = 2200; lp.Q.value = 0.4;
 
-      const g  = audioCtx.createGain(); g.gain.value = 0.5;
+      const g  = audioCtx.createGain(); g.gain.value = 0.18;
 
-      // LFO 1: slow main swell (~8s)
+      // Slow rustle LFO (~14s) — wind gently moves through trees
       const lfo1 = audioCtx.createOscillator(); lfo1.type='sine';
-      lfo1.frequency.value = 0.11;
-      const lfo1G = audioCtx.createGain(); lfo1G.gain.value = 420;
+      lfo1.frequency.value = 0.07;
+      const lfo1G = audioCtx.createGain(); lfo1G.gain.value = 700;
       lfo1.connect(lfo1G); lfo1G.connect(lp.frequency);
 
-      // LFO 2: very slow drift (~25s)
+      // Subtle amplitude shimmer (~3s)
       const lfo2 = audioCtx.createOscillator(); lfo2.type='sine';
-      lfo2.frequency.value = 0.04;
-      const lfo2G = audioCtx.createGain(); lfo2G.gain.value = 200;
-      lfo2.connect(lfo2G); lfo2G.connect(lp.frequency);
-
-      // LFO 3: faster chop on amplitude (~1.6s)
-      const lfo3 = audioCtx.createOscillator(); lfo3.type='sine';
-      lfo3.frequency.value = 0.62;
-      const lfo3G = audioCtx.createGain(); lfo3G.gain.value = 0.18;
-      lfo3.connect(lfo3G); lfo3G.connect(g.gain);
+      lfo2.frequency.value = 0.33;
+      const lfo2G = audioCtx.createGain(); lfo2G.gain.value = 0.05;
+      lfo2.connect(lfo2G); lfo2G.connect(g.gain);
 
       const panner = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
       if(panner) panner.pan.value = pan;
@@ -780,10 +807,10 @@
       if(panner){ g.connect(panner); panner.connect(ambGain); }
       else { g.connect(ambGain); }
 
-      src.start(); lfo1.start(); lfo2.start(); lfo3.start();
+      src.start(); lfo1.start(); lfo2.start();
     };
-    makeOceanChannel(-0.55);
-    makeOceanChannel( 0.55);
+    makeForestChannel(-0.55);
+    makeForestChannel( 0.55);
 
     // ---------- BREEZE ----------
     // Soft high-passed noise pad, with a slow LFO making the wind "gust" in and out.
@@ -823,7 +850,7 @@
   ambToggle.addEventListener('click', ()=>{
     ambOn = !ambOn;
     ambToggle.classList.toggle('active', ambOn);
-    ambToggle.textContent = ambOn ? '🌊 Ambience' : '🌊 Silent';
+    ambToggle.textContent = ambOn ? '� Ambience' : '🌳 Silent';
     ensureAudio();
     if(!ambStarted) startAmbience();
     fadeAmbience(ambOn ? 0.35 : 0.0, 1.2);
@@ -952,7 +979,7 @@
      Suggestions: "Kun Faya Kun", "Phir Le Aaya Dil", "Naina", or any chill
         Hindi/instrumental track for misty hills vibes.
      ========================= */
-  const YT_SONG_ID = 'PASTE_VIDEO_ID_HERE';   // ← e.g. 'EuTcUOhFsAU'
+  const YT_SONG_ID = 'fdubeMTA9wA';   // Ilahi — Yeh Jawaani Hai Deewani
 
   let ytPlayer = null;
   let ytReady = false;
@@ -1055,44 +1082,72 @@
   setInterval(()=>{ if(!document.hidden) spawnWindStreak(); }, 900);
   setInterval(()=>{ if(!document.hidden) spawnPetal(); }, 1800);
 
-  /* Light rain (visual drizzle) */
-  const rainEl = document.getElementById('rain');
-  function spawnDrop(){
-    const d = document.createElement('div');
-    d.className = 'drop';
-    d.style.left = (Math.random()*100) + 'vw';
-    const dur = 0.6 + Math.random()*0.8;
-    d.style.animationDuration = dur + 's';
-    d.style.height = (10 + Math.random()*18) + 'px';
-    d.style.opacity = (0.3 + Math.random()*0.4).toFixed(2);
-    rainEl.appendChild(d);
-    setTimeout(()=> d.remove(), dur*1000 + 200);
-  }
-  setInterval(()=>{ if(!document.hidden) for(let i=0;i<3;i++) spawnDrop(); }, 120);
+  /* Light rain visuals removed for Coorg — fog bands handle the moody vibe */
 
   /* =========================
-     Procedural ocean crash — random distant wave SFX while ambience is on
+     Coorg ambience flourishes —
+     Random distant bird-call + occasional temple bell while ambience is on.
      ========================= */
-  function oceanCrash(){
+  function birdCall(){
     if(!audioCtx || !ambStarted) return;
-    // soft, far-away crash: lowpass-swept noise + low body
     const t0 = audioCtx.currentTime;
-    // noise body
-    const src = audioCtx.createBufferSource(); src.buffer = getNoise();
-    const lp = audioCtx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.setValueAtTime(2200, t0); lp.frequency.exponentialRampToValueAtTime(400, t0+2.2);
-    const hp = audioCtx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=180;
-    const g = audioCtx.createGain();
-    g.gain.setValueAtTime(0.0001, t0);
-    g.gain.exponentialRampToValueAtTime(0.22, t0+0.25);
-    g.gain.exponentialRampToValueAtTime(0.0001, t0+2.2);
-    src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(ambGain);
-    src.start(t0); src.stop(t0+2.4);
+    // Pick a small motif of 2–4 chirps.
+    const baseOptions = [880, 1320, 1760, 2200];
+    const base = baseOptions[Math.floor(Math.random()*baseOptions.length)];
+    const motifLen = 2 + Math.floor(Math.random()*3);
+    for(let i=0;i<motifLen;i++){
+      const f1 = base * (0.9 + Math.random()*0.4);
+      const f2 = f1 * (1.4 + Math.random()*0.5);
+      const startAt = t0 + i*(0.10 + Math.random()*0.08);
+      const dur = 0.07 + Math.random()*0.08;
+
+      const o = audioCtx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(f1, startAt);
+      o.frequency.exponentialRampToValueAtTime(f2, startAt + dur);
+
+      const bp = audioCtx.createBiquadFilter(); bp.type='bandpass';
+      bp.frequency.value = (f1+f2)/2; bp.Q.value = 6;
+
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, startAt);
+      g.gain.exponentialRampToValueAtTime(0.10, startAt + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, startAt + dur);
+
+      o.connect(bp); bp.connect(g); g.connect(ambGain);
+      o.start(startAt); o.stop(startAt + dur + 0.05);
+    }
   }
-  function scheduleCrash(){
-    const next = 6000 + Math.random()*10000; // 6–16s gaps
-    setTimeout(()=>{ if(ambOn) oceanCrash(); scheduleCrash(); }, next);
+  function templeBell(){
+    if(!audioCtx || !ambStarted) return;
+    const t0 = audioCtx.currentTime;
+    const base = 660 + Math.random()*120; // soft brass-y bell
+    const partials = [1, 2.01, 3.04, 4.2];
+    const gains = [0.18, 0.10, 0.06, 0.04];
+    const dur = 2.4;
+    const sum = audioCtx.createGain(); sum.gain.value = 0.7;
+    sum.connect(ambGain);
+    partials.forEach((p,i)=>{
+      const o = audioCtx.createOscillator(); o.type='sine';
+      o.frequency.value = base*p;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(gains[i], t0 + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(sum);
+      o.start(t0); o.stop(t0 + dur + 0.05);
+    });
   }
-  scheduleCrash();
+  function scheduleAmbienceFlourish(){
+    const next = 5000 + Math.random()*9000; // 5–14s
+    setTimeout(()=>{
+      if(ambOn){
+        // mostly birds, occasional temple bell
+        if(Math.random() < 0.18) templeBell(); else birdCall();
+      }
+      scheduleAmbienceFlourish();
+    }, next);
+  }
+  scheduleAmbienceFlourish();
 
   /* =========================
      Floating music notes around dance crew
@@ -1142,6 +1197,46 @@
     "Ek try aur, fir Sharma ji ke bete ban jaa 😎",
     "Bhakk yaar, click toh kar 🤣",
   ];
+
+  /* Friendly, name-targeted callouts — used randomly between generic taunts */
+  const personalTaunts = {
+    Ravi: [
+      "Ravi, 'kal dekhta hoon' bola tha — kal aa gaya bhai 📅",
+      "Ravi bhai, calendar mein 'busy' likh ke aap kis ko bewakoof bana rahe ho 🤡",
+      "Ravi, last trip pe bhi tu yahi naatak kar raha tha 🎭",
+      "Ravi: 'meeting hai' — bhai meeting tera ghar pe nahi, Madikeri mein hai 📍",
+      "Ravi tu na aaya toh hum teri photo le ke jayenge — meme banega 😂",
+      "Ravi, coffee estate mein tera naam pe ek pauda lagayenge ☕🌱",
+      "Ravi bhai status: 'Sochne mein expert, click karne mein fail' ✅",
+      "Ravi, tu haan bole toh GDP badh jayegi desh ki 📈",
+    ],
+    Prakarsh: [
+      "Prakarsh, Nistha pehle haan bol degi, tu late mat kar 🙃",
+      "Prakarsh bhai, couple goals dikhane ka time aa gaya — Coorg waterfall ke saamne 💑📸",
+      "Prakarsh, 'Nistha se puchke batata hoon' — bhai pooch le, yahi waqt hai 📞",
+      "Prakarsh, single log jealous ho rahe hain — chal aur jealous kar 😎",
+      "Prakarsh + Nistha = trip ka official photographer duo 📷❤️",
+      "Prakarsh, honeymoon nahi tha — yeh bhi nahi? bhai please 🥺",
+      "Prakarsh bhai, Nistha already bag pack kar rahi hai, tu reel banane mein lag ja 🎬",
+    ],
+    Nistha: [
+      "Nistha di, Prakarsh ko convince karne ki responsibility aap pe 💪",
+      "Nistha, aap haan bolo — Prakarsh apne aap maan jayega, sabko pata hai 😏",
+      "Nistha, Coorg ki coffee aap ke instagram filter se bhi achi hai ☕✨",
+      "Nistha, Abbey Falls ke saamne ek pic = 1000 likes guaranteed 📸",
+      "Nistha di, aap aaye toh trip ka aesthetic level 100x ho jayega 🌸",
+    ],
+    Kalpikha: [
+      "Kalpikha, naam itna unique hai, trip bhi utni hi unique honi chahiye 🌟",
+      "Kalpikha, tu na aayi toh group photo adhuri lagegi 📸",
+      "Kalpikha, plantation walk + tujhse gossip = perfect combo ☕🗣️",
+      "Kalpikha, 'baad mein aati hoon' wala dialogue mat dena yaar 🙄",
+      "Kalpikha di, tera 'thinking' face ab Mandalpatti ke saamne dikhna chahiye 🏔️",
+      "Kalpikha, trip pe aa — instagram ki bhookh mit jayegi 😋",
+      "Kalpikha, tu aayi toh squad complete, warna ek seat khaali rahegi 🚗",
+    ],
+  };
+  const personalNames = Object.keys(personalTaunts);
   const tauntVoice = [
     "Arre pakad ke dikha pehle",
     "Coorg chal na yaar",
@@ -1150,6 +1245,10 @@
     "Try again champion",
     "Tu pakka Ravi hai, chup chap chal le",
     "Ravi bhai, sirf chaar din ki baat hai",
+    "Prakarsh, Nistha se pooch ke bata de",
+    "Nistha, aap haan bolo, baaki sab maan jayenge",
+    "Kalpikha, baad mein wala dialogue mat dena",
+    "Ravi calendar mein busy mat likh",
     "Bhakk yaar, click toh kar",
   ];
 
@@ -1184,9 +1283,11 @@
     const scale = (0.85 + Math.random()*0.35).toFixed(2);
     noBtn.style.transform = `rotate(${rot}deg) scale(${scale})`;
 
-    // Ravi-callout 1 in 4
-    if(attempts >= 2 && Math.random() < 0.28){
-      taunt.textContent = "Ravi! tu hi roz aisa karta hai 😤 — chal click kar!";
+    // Personal callout (Ravi / Prakarsh / Nistha / Kalpikha) ~40% of the time after 2 attempts
+    if(attempts >= 2 && Math.random() < 0.4){
+      const who = personalNames[Math.floor(Math.random()*personalNames.length)];
+      const lines = personalTaunts[who];
+      taunt.textContent = lines[Math.floor(Math.random()*lines.length)];
     } else {
       taunt.textContent = taunts[Math.floor(Math.random()*taunts.length)];
     }
