@@ -733,22 +733,22 @@
       return;
     }
     if(!chosenVoice) refreshVoices();
-    // Chrome race: cancel + immediate speak sometimes drops; tiny delay fixes it
+    // Cancel any in-flight utterance, then speak SYNCHRONOUSLY so we keep
+    // the user-gesture chain alive (Safari otherwise blocks the call).
     try { window.speechSynthesis.cancel(); } catch(e){}
-    setTimeout(() => {
-      const u = new SpeechSynthesisUtterance(text);
-      if(chosenVoice){
-        u.voice = chosenVoice;
-        u.lang  = chosenVoice.lang;   // match the voice, don't force hi-IN if voice is en-*
-      } else {
-        u.lang = 'en-IN';
-      }
-      u.rate   = opts.rate   ?? 0.98;
-      u.pitch  = opts.pitch  ?? 1.0;
-      u.volume = opts.volume ?? 1.0;
-      u.onerror = (ev) => console.warn('TTS error:', ev.error, ev);
-      window.speechSynthesis.speak(u);
-    }, 60);
+    const u = new SpeechSynthesisUtterance(text);
+    if(chosenVoice){
+      u.voice = chosenVoice;
+      u.lang  = chosenVoice.lang;   // match the voice, don't force hi-IN if voice is en-*
+    } else {
+      u.lang = 'en-IN';
+    }
+    u.rate   = opts.rate   ?? 0.98;
+    u.pitch  = opts.pitch  ?? 1;
+    u.volume = opts.volume ?? 1;
+    u.onerror = (ev) => console.warn('TTS error:', ev.error, ev);
+    try { window.speechSynthesis.speak(u); }
+    catch(e){ console.warn('TTS speak failed:', e); }
   }
 
   /* =========================
@@ -1011,12 +1011,29 @@
       events: {
         onReady: () => {
           ytReady = true;
+          // Most browsers block autoplay-with-sound until a user gesture happens.
+          // We try here optimistically (works on desktop Chrome usually); the
+          // real reliable kick happens via the first-gesture hook below.
           if(songOn){ try{ ytPlayer.unMute(); ytPlayer.playVideo(); }catch(e){} }
         },
         onError: (e) => console.warn('YouTube player error:', e)
       }
     });
   };
+
+  // Kick the YT song on the first real user gesture (click / touch / key).
+  // Safari & mobile Chrome will not autoplay otherwise.
+  let songKicked = false;
+  function kickYTSong(){
+    if(songKicked) return;
+    if(!ytReady || !ytPlayer || !songOn) return;
+    songKicked = true;
+    try{ ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo(); }
+    catch(e){ console.warn('YT kick failed:', e); }
+  }
+  ['pointerdown','touchstart','keydown'].forEach(ev =>
+    document.addEventListener(ev, kickYTSong, { once:false, passive:true })
+  );
 
   // Coorg song is always on — no toggle. Duck the procedural synth music
   // permanently so it sits under the YouTube track without fighting it.
